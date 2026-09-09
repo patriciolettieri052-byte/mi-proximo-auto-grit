@@ -1,0 +1,8 @@
+{
+  "name": "mi-proximo-auto-grit",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server.cjs"
+  }
+}

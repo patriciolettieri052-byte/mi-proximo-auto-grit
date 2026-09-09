@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Mi próximo auto — Grupo Más Autos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0F0D0A;--ink-pleno:#000000;--card-dark:#0F0D0A;
+  --card-border:rgba(255,255,255,.18);--line-divider:#28231B;
+  --accent:#F2820D;--accent-hover:#D97209;
+  --wa:#25D366;--wa-hover:#1EB856;--wa-text:#04210C;
+  --text-main:#FFFFFF;--text-body:#EDE9E3;--text-muted:rgba(255,255,255,.72);
+  --header-bg:#FFFFFF;--header-text:#1A1612;--header-border:#E5E2DC;
+  --radius-card:8px;--radius-btn:8px;--radius-badge:0px;
+  --surface-2:#171410;--accent-soft:rgba(242,130,13,.12);
+  --text-dim:rgba(255,255,255,.45);
+  --bubble-ia:#171410;--bubble-user:#F2820D;--bubble-user-text:#120C03;
+  --radius-bubble:14px;--radius-chip:22px;--nav-h:62px;
+}
+*{text-shadow:none!important}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:'Manrope',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:#000;color:var(--text-body);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.phone{width:100%;max-width:480px;height:100dvh;max-height:900px;background:var(--ink);position:relative;
+  overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+@media(min-width:540px){.phone{border-radius:var(--radius-card)}}
+
+.top{padding:0 16px;height:51px;border-bottom:1px solid var(--header-border);flex-shrink:0;
+  background:var(--header-bg);color:var(--header-text);z-index:6;
+  display:flex;align-items:center;justify-content:space-between}
+.top-l{display:flex;align-items:center;gap:10px;min-width:0}
+.logo{width:28px;height:28px;border-radius:var(--radius-btn);background:var(--accent);display:grid;place-items:center;color:#120C03;font-family:'Exo 2';font-weight:800;font-size:13px}
+.top-txt b{font-family:'Exo 2';font-weight:800;font-size:15px;display:block;line-height:1.2;color:var(--header-text)}
+.top-txt span{font-size:11px;color:#6B6560;display:block;font-weight:400}
+.pill{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--header-text);background:transparent;border:1px solid var(--header-text);
+  padding:4px 10px;border-radius:var(--radius-badge);white-space:nowrap}
+.pill.gris{color:#6B6560;border-color:var(--header-border)}
+
+.vista{flex:1;overflow-y:auto;display:none;flex-direction:column;-webkit-overflow-scrolling:touch}
+.vista.on{display:flex}
+
+/* Chat */
+.hilo{flex:1;overflow-y:auto;padding:20px 18px 8px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:84%;padding:12px 15px;font-size:15px;line-height:1.45;border-radius:var(--radius-bubble);
+  font-weight:400;animation:sube .28s ease both}
+.msg.ia{background:var(--bubble-ia);color:var(--text-body);border-bottom-left-radius:4px;align-self:flex-start}
+.msg.yo{background:var(--bubble-user);color:var(--bubble-user-text);border-bottom-right-radius:4px;align-self:flex-end;font-weight:500}
+.msg b{font-weight:700;color:var(--text-main)}
+.msg.yo b{color:var(--bubble-user-text)}
+@keyframes sube{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.escribiendo{display:flex;gap:4px;padding:15px}
+.escribiendo i{width:6px;height:6px;background:var(--text-dim);border-radius:50%;animation:pulso 1.2s infinite}
+.escribiendo i:nth-child(2){animation-delay:.18s}
+.escribiendo i:nth-child(3){animation-delay:.36s}
+@keyframes pulso{0%,60%,100%{opacity:.3}30%{opacity:1}}
+.chips{padding:8px 16px 0;display:flex;flex-wrap:wrap;gap:8px;background:var(--ink);flex-shrink:0}
+.chip{padding:10px 16px;min-height:42px;border:1px solid var(--card-border);border-radius:var(--radius-chip);
+  background:transparent;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;
+  color:var(--text-body);transition:.15s}
+.chip:active{background:var(--accent);border-color:var(--accent);color:#120C03}
+.chip.cta{border-color:var(--accent);color:var(--accent)}
+.chip.permuta{border-color:var(--wa);color:var(--wa)}
+.barra{display:flex;gap:9px;align-items:center;padding:12px 16px;border-top:1px solid var(--line-divider);
+  background:var(--ink);flex-shrink:0}
+.barra input{flex:1;padding:13px 16px;border:1px solid var(--card-border);border-radius:var(--radius-chip);
+  font-size:15px;font-weight:400;font-family:inherit;background:var(--surface-2);color:var(--text-body);outline:none}
+.barra input::placeholder{color:var(--text-dim)}
+.barra input:focus{border-color:var(--accent)}
+.enviar{width:44px;height:44px;flex-shrink:0;border:none;border-radius:50%;background:var(--accent);
+  color:#120C03;display:grid;place-items:center;cursor:pointer}
+.enviar:disabled{background:var(--surface-2);color:var(--text-dim)}
+
+/* Resultados */
+.match-head{padding:18px 18px 4px;flex-shrink:0}
+.match-head h2{font-family:'Exo 2';font-size:20px;font-weight:800;margin-bottom:5px;color:var(--text-main)}
+.match-head p{font-size:13px;color:var(--text-muted);line-height:1.5;font-weight:400}
+.match-head p b{color:var(--text-body);font-weight:600}
+
+.plazos{display:flex;gap:7px;padding:14px 18px 0;flex-shrink:0}
+.plazo{flex:1;padding:11px 0;border:1px solid var(--card-border);border-radius:var(--radius-btn);
+  background:transparent;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;color:var(--text-muted)}
+.plazo.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+
+.ajuste{margin:14px 16px 0;border:1px solid var(--card-border);border-radius:var(--radius-card);overflow:hidden;flex-shrink:0}
+.ajuste-head{display:flex;align-items:center;justify-content:space-between;padding:13px 15px;cursor:pointer}
+.ajuste-head div b{font-size:13.5px;font-weight:600;display:block;color:var(--text-body)}
+.ajuste-head div small{font-size:11.5px;color:var(--text-dim);font-weight:400}
+.switch{width:42px;height:25px;border-radius:14px;background:var(--line-divider);position:relative;flex-shrink:0;transition:.2s}
+.switch::after{content:'';position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.ajuste.on .switch{background:var(--accent)}
+.ajuste.on .switch::after{transform:translateX(17px)}
+.ajuste-body{display:none;padding:4px 15px 16px;border-top:1px solid var(--line-divider)}
+.ajuste.on .ajuste-body{display:block}
+.slider-top{display:flex;justify-content:space-between;align-items:baseline;margin:12px 0 10px}
+.slider-top small{font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.1em}
+.slider-top b{font-family:'Exo 2';font-size:19px;font-weight:800;color:var(--text-main)}
+.slider-top b i{font-style:normal;font-size:12px;color:var(--text-dim);font-weight:600;font-family:'Manrope'}
+input[type=range]{-webkit-appearance:none;width:100%;height:4px;border-radius:4px;background:var(--line-divider);outline:none;margin:2px 0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;
+  background:var(--accent);cursor:pointer;box-shadow:0 2px 8px rgba(242,130,13,.4);border:3px solid var(--ink)}
+input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--accent);cursor:pointer;border:3px solid var(--ink)}
+.conteo{font-size:12.5px;color:var(--text-muted);margin-top:11px;font-weight:400}
+.conteo b{color:var(--accent);font-weight:700}
+
+.lista{padding:14px 16px 22px;display:flex;flex-direction:column;gap:12px}
+.card{border:1px solid var(--card-border);border-radius:var(--radius-card);overflow:hidden;
+  background:var(--card-dark);box-shadow:none;animation:sube .3s ease both}
+.foto{height:140px;background:var(--surface-2);display:grid;place-items:center;position:relative;border-bottom:1px solid var(--line-divider)}
+.foto svg{opacity:.14}
+.tag{position:absolute;top:10px;left:10px;font-family:'Manrope';font-weight:600;font-size:.72rem;
+  letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:var(--radius-badge);
+  background:transparent;border:1px solid #fff;color:#fff}
+.tag.plan{left:auto;right:10px;background:var(--accent);border-color:var(--accent);color:#120C03}
+.tag.plan.banco{background:transparent;border-color:#fff;color:#fff}
+.card-body{padding:16px}
+.card-body h3{font-family:'Exo 2';font-size:17px;font-weight:800;margin-bottom:4px;color:var(--text-main)}
+.specs{font-size:13px;color:var(--text-muted);margin-bottom:12px;font-weight:400}
+.fin{background:var(--surface-2);border-radius:var(--radius-btn);padding:12px 14px;margin-bottom:12px}
+.fin-row{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;padding:3px 0}
+.fin-row span{color:var(--text-muted);font-weight:500}
+.fin-row b{font-weight:700;color:var(--text-body)}
+.fin-row.big b{font-family:'Exo 2';font-size:22px;font-weight:800;color:var(--accent)}
+.fin-row.big span{font-weight:600;color:var(--text-body)}
+.fin small{display:block;font-size:11px;color:var(--text-dim);margin-top:8px;line-height:1.45;font-weight:400}
+.wa{width:100%;padding:12px 22px;border:none;border-radius:var(--radius-btn);background:var(--wa);
+  color:var(--wa-text);font-size:.88rem;font-weight:600;font-family:'Manrope';cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 4px 15px rgba(37,211,102,.3);transition:all .2s ease-in-out}
+.wa:hover{background:var(--wa-hover);transform:translateY(-1px);box-shadow:0 6px 20px rgba(37,211,102,.45)}
+
+.vacio{padding:40px 26px;text-align:center}
+.vacio h3{font-family:'Exo 2';font-size:19px;font-weight:800;margin:0 0 8px;color:var(--text-main)}
+.vacio p{font-size:14px;color:var(--text-muted);line-height:1.55;margin-bottom:18px;font-weight:400}
+.vacio p b{color:var(--text-body);font-weight:600}
+.brecha{background:var(--accent-soft);border:1px solid rgba(242,130,13,.3);border-radius:var(--radius-card);
+  padding:15px;margin-bottom:12px;text-align:left}
+.brecha b{display:block;font-family:'Exo 2';font-size:24px;font-weight:800;color:var(--accent);margin-bottom:4px}
+.brecha span{font-size:12.5px;color:var(--text-muted);line-height:1.45;display:block;font-weight:400}
+.btn-linea{padding:13px 22px;border:1px solid var(--accent);background:transparent;color:var(--accent);
+  border-radius:var(--radius-btn);font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;width:100%;margin-bottom:9px}
+
+/* Vendedor */
+#vVend{padding:22px}
+.ficha{border:1px solid var(--card-border);border-radius:var(--radius-card);padding:24px 20px;text-align:center;margin-bottom:14px;background:var(--card-dark)}
+.avatar{width:64px;height:64px;border-radius:50%;background:var(--accent-soft);color:var(--accent);
+  border:1px solid rgba(242,130,13,.3);display:grid;place-items:center;
+  font-family:'Exo 2';font-size:23px;font-weight:800;margin:0 auto 13px}
+.ficha h3{font-family:'Exo 2';font-size:19px;font-weight:800;margin-bottom:4px;color:var(--text-main)}
+.ficha p{font-size:13px;color:var(--text-muted);margin-bottom:18px;font-weight:400}
+.resumen{background:var(--surface-2);border-radius:var(--radius-card);padding:18px;margin-bottom:16px}
+.resumen h4{font-size:.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+.dato{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line-divider);font-size:13px;gap:12px}
+.dato:last-child{border:none}
+.dato span{color:var(--text-muted);white-space:nowrap;font-weight:500}
+.dato b{font-weight:700;text-align:right;color:var(--text-body)}
+.ref{font-size:11px;color:var(--text-dim);text-align:center;margin-bottom:10px;letter-spacing:.08em}
+.horario{font-size:12px;color:var(--text-dim);text-align:center;line-height:1.6;font-weight:400}
+
+.nav{display:flex;min-height:var(--nav-h);border-top:1px solid var(--line-divider);background:var(--ink-pleno);
+  flex-shrink:0;padding-bottom:env(safe-area-inset-bottom)}
+.nav button{flex:1;padding:11px 4px 13px;background:none;border:none;font-family:'Manrope';cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--text-dim);transition:.15s;position:relative}
+.nav button span{font-size:10.5px;font-weight:600}
+.nav button.on{color:var(--accent)}
+.nav button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.badge{position:absolute;top:7px;right:calc(50% - 21px);background:var(--accent);color:#120C03;font-size:9.5px;
+  font-weight:800;min-width:16px;height:16px;border-radius:9px;display:grid;place-items:center;padding:0 4px}
+.oculto{display:none!important}
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <div class="top">
+    <div class="top-l">
+      <div class="logo">G</div>
+      <div class="top-txt"><b id="tTit">Asistente</b><span id="tSub">Grupo Más Autos</span></div>
+    </div>
+    <div class="pill gris" id="pill">Demo</div>
+  </div>
+
+  <!-- CHAT -->
+  <div class="vista on" id="vChat">
+    <div class="hilo" id="hilo"></div>
+    <div class="chips" id="chips"></div>
+    <div class="barra">
+      <input id="txt" placeholder="Escribí tu respuesta…" autocomplete="off"
+             onkeydown="if(event.key==='Enter')mandar()" oninput="document.getElementById('send').disabled=!this.value.trim()">
+      <button class="enviar" id="send" disabled onclick="mandar()">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- RESULTADOS -->
+  <div class="vista" id="vAutos">
+    <div class="match-head">
+      <h2 id="mTit">Todavía no busqué nada</h2>
+      <p id="mSub">Contame en el chat tu situación y te armo la lista.</p>
+    </div>
+
+    <div class="plazos oculto" id="plazos">
+      <button class="plazo" onclick="setPlazo(12)" id="p12">12 cuotas</button>
+      <button class="plazo" onclick="setPlazo(18)" id="p18">18 cuotas</button>
+      <button class="plazo on" onclick="setPlazo(24)" id="p24">24 cuotas</button>
+    </div>
+
+    <div class="ajuste" id="ajuste">
+      <div class="ajuste-head" onclick="toggleAjuste()">
+        <div><b>Probar con otros números</b><small id="ajLbl">Ver qué se abre si movés la entrega</small></div>
+        <div class="switch"></div>
+      </div>
+      <div class="ajuste-body">
+        <div class="slider-top"><small>Entrega disponible</small><b id="lblEnt">USD 0</b></div>
+        <input type="range" id="rEnt" min="0" max="30000" step="100" value="0" oninput="moverEnt()">
+        <div class="slider-top"><small>Cuota mensual</small><b id="lblCuo">$ 0 <i>/mes</i></b></div>
+        <input type="range" id="rCuo" min="4000" max="60000" step="500" value="12000" oninput="moverCuo()">
+        <div class="conteo" id="conteo"></div>
+      </div>
+    </div>
+
+    <div class="lista" id="lista"></div>
+  </div>
+
+  <!-- VENDEDOR -->
+  <div class="vista" id="vVend">
+    <div class="ficha">
+      <div class="avatar">H</div>
+      <h3>Hernán</h3>
+      <p>Asesor comercial — Grit + Más Autos</p>
+      <button class="wa" onclick="abrirWA()">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.1c.1.2.1.4 0 .6l-.4.5-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>
+        Escribirle por WhatsApp
+      </button>
+    </div>
+    <div class="resumen">
+      <h4>Lo que le llega con tu mensaje</h4>
+      <div class="dato"><span>Situación crediticia</span><b id="rClearing">—</b></div>
+      <div class="dato"><span>Plan</span><b id="rPlan">—</b></div>
+      <div class="dato"><span>Entrega</span><b id="rEntrega">—</b></div>
+      <div class="dato"><span>Cuota buscada</span><b id="rCuota">—</b></div>
+      <div class="dato"><span>Auto de interés</span><b id="rAuto">—</b></div>
+    </div>
+    <div class="ref" id="refTxt">Ref: —</div>
+    <div class="horario">Lunes a viernes 9 a 19 · Sábados 9 a 13<br>Nueva Palmira 2061 / 2064</div>
+  </div>
+
+  <div class="nav" id="nav">
+    <button onclick="ir('autos')" id="nAutos">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></svg>
+      <span>Mi próximo auto</span><div class="badge oculto" id="badge">0</div>
+    </button>
+    <button onclick="ir('chat')" id="nChat" class="on">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 11.5a8.4 8.4 0 01-9 8.4 8.5 8.5 0 01-3.8-.9L3 21l1.9-5.2A8.4 8.4 0 0112 3.1a8.4 8.4 0 019 8.4z"/></svg>
+      <span>Chat</span>
+    </button>
+    <button onclick="ir('vend')" id="nVend">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Vendedor</span>
+    </button>
+  </div>
+</div>
+
+<script>
+/* ===========================================================
+   CONFIG — espeja config.json de "Los Más Buscados"
+   =========================================================== */
+const CFG = {
+  financiacion:{
+    tipo_cambio_usd_uyu: 40,
+    factor_cuota_banco: 0.024,
+    plazo_banco: 60,
+    plazos_casa: [12,18,24],
+    costo_titulos: 550,          // se divide 50/50
+    entrega_minima_pct: 0.50,    // REGLA DURA: 50% + garantes
+    entrega_maxima_pct: 0.90
+  },
+  contacto:{
+    whatsapp_grit: "59896772586",
+    whatsapp_mas_autos: "59896772586"
+  }
+};
+
+/* Stock mock — sin bonos (fuera de alcance en esta app) */
+const STOCK=[
+ {id:"MA-VW-GOL-2016-01",empresa:"mas_autos",marca:"Volkswagen",modelo:"Gol Trend",anio:2016,km:98000,precio_usd:12500,combustible:"nafta",credito_propio:true},
+ {id:"MA-CHEV-ONIX-2019-01",empresa:"mas_autos",marca:"Chevrolet",modelo:"Onix LT",anio:2019,km:64000,precio_usd:14900,combustible:"nafta",credito_propio:true},
+ {id:"MA-REN-KWID-2021-01",empresa:"mas_autos",marca:"Renault",modelo:"Kwid Life",anio:2021,km:41000,precio_usd:9990,combustible:"nafta",credito_propio:true},
+ {id:"MA-SUZ-CELERIO-2018-01",empresa:"mas_autos",marca:"Suzuki",modelo:"Celerio GL",anio:2018,km:72000,precio_usd:8700,combustible:"nafta",credito_propio:true},
+ {id:"GR-FIAT-CRONOS-2020-01",empresa:"grit",marca:"Fiat",modelo:"Cronos Drive",anio:2020,km:55000,precio_usd:15900,combustible:"nafta",credito_propio:true},
+ {id:"GR-NIS-KICKS-2019-01",empresa:"grit",marca:"Nissan",modelo:"Kicks Sense",anio:2019,km:78000,precio_usd:19990,combustible:"nafta",credito_propio:true},
+ {id:"GR-VW-TCROSS-2021-01",empresa:"grit",marca:"Volkswagen",modelo:"T-Cross",anio:2021,km:46000,precio_usd:24500,combustible:"nafta",credito_propio:true},
+ {id:"GR-FIAT-STRADA-2022-01",empresa:"grit",marca:"Fiat",modelo:"Strada Volcano",anio:2022,km:38000,precio_usd:17990,combustible:"nafta",credito_propio:true},
+ {id:"MA-PEU-208-2018-01",empresa:"mas_autos",marca:"Peugeot",modelo:"208 Active",anio:2018,km:88000,precio_usd:11900,combustible:"nafta",credito_propio:true},
+ {id:"GR-BYD-DOLPHIN-2024-01",empresa:"grit",marca:"BYD",modelo:"Dolphin Mini",anio:2024,km:12000,precio_usd:24990,combustible:"eléctrico",credito_propio:true},
+ {id:"GR-NIS-FRONTIER-2021-01",empresa:"grit",marca:"Nissan",modelo:"Frontier XE",anio:2021,km:92000,precio_usd:36900,combustible:"diésel",credito_propio:false},
+ {id:"GR-TOY-HILUX-2019-01",empresa:"grit",marca:"Toyota",modelo:"Hilux SR",anio:2019,km:120000,precio_usd:32900,combustible:"diésel",credito_propio:false},
+ {id:"MA-CHEV-SPIN-2017-01",empresa:"mas_autos",marca:"Chevrolet",modelo:"Spin LT",anio:2017,km:104000,precio_usd:13500,combustible:"nafta",credito_propio:true},
+ {id:"MA-FORD-ECOSPORT-2018-01",empresa:"mas_autos",marca:"Ford",modelo:"EcoSport SE",anio:2018,km:86000,precio_usd:14200,combustible:"nafta",credito_propio:true}
+];
+
+/* ===========================================================
+   MOTOR FINANCIERO — portado de app.js de la landing
+   Una sola fuente de verdad. La app NO invierte la fórmula:
+   calcula la cuota de cada auto y compara contra el objetivo.
+   =========================================================== */
+const TIT = CFG.financiacion.costo_titulos / 2;   // 275
+
+function calcPlanBanco(precio){
+  const tc=CFG.financiacion.tipo_cambio_usd_uyu, f=CFG.financiacion.factor_cuota_banco;
+  return Math.floor(precio*tc*f/100)*100;          // UYU, redondeo hacia abajo a centena
+}
+function entregaMinima(precio){
+  return Math.ceil(precio*CFG.financiacion.entrega_minima_pct + TIT);
+}
+function entregaMaxima(precio){
+  return Math.ceil(precio*CFG.financiacion.entrega_maxima_pct + TIT);
+}
+/* Dada una entrega total declarada, devuelve la cuota del Plan Casa */
+function calcPlanCasa(precio, entregaTotal, meses){
+  const entregaCapital = entregaTotal - TIT;
+  if(entregaCapital < precio*CFG.financiacion.entrega_minima_pct) return null;
+  const capUsada = Math.min(entregaCapital, precio*CFG.financiacion.entrega_maxima_pct);
+  const financiado = (precio - capUsada) + TIT;
+  return Math.ceil(financiado*(1/meses + 0.02));   // USD, redondeo hacia arriba
+}
+
+const usd2uyu = u => u*CFG.financiacion.tipo_cambio_usd_uyu;
+const fmtU = n => "$ "+Math.round(n).toLocaleString("es-UY");
+const fmtD = n => "USD "+Math.round(n).toLocaleString("es-UY");
+const $ = id => document.getElementById(id);
+
+/* ===========================================================
+   ESTADO
+   =========================================================== */
+const REF = "MPA-"+Math.random().toString(36).slice(2,5).toUpperCase();
+const user = {
+  clearing:null,      // 'si' | 'no' | 'nose'
+  plan:null,          // 'casa' | 'banco' | 'ambos'
+  entrega:0,          // USD declarados
+  entregaTxt:"—",
+  permuta:false,
+  cuota:12000,        // UYU objetivo
+  meses:24,
+  auto:"—",
+  autoObj:null
+};
+let listo=false, ajusteOn=false;
+
+/* ===========================================================
+   CHAT
+   =========================================================== */
+const hilo=$('hilo'), chips=$('chips');
+let paso=0;
+
+function decir(txt,quien,cb){
+  if(quien==='ia'){
+    const t=document.createElement('div');
+    t.className='msg ia escribiendo';t.innerHTML='<i></i><i></i><i></i>';
+    hilo.appendChild(t);hilo.scrollTop=hilo.scrollHeight;
+    setTimeout(()=>{
+      t.remove();
+      const m=document.createElement('div');m.className='msg ia';m.innerHTML=txt;
+      hilo.appendChild(m);hilo.scrollTop=hilo.scrollHeight;
+      if(cb)cb();
+    },650);
+  }else{
+    const m=document.createElement('div');m.className='msg yo';m.textContent=txt;
+    hilo.appendChild(m);hilo.scrollTop=hilo.scrollHeight;
+    if(cb)cb();
+  }
+}
+function opciones(arr){
+  chips.innerHTML='';
+  arr.forEach(o=>{
+    const b=document.createElement('button');
+    b.className='chip'+(o.cls?' '+o.cls:'');b.textContent=o.t;
+    b.onclick=()=>{chips.innerHTML='';decir(o.t,'yo');setTimeout(o.f,400)};
+    chips.appendChild(b);
+  });
+}
+
+function empezar(){
+  decir("Hola. Tres preguntas y te digo qué autos te entran.",'ia',()=>{
+    setTimeout(()=>pregunta(1),400);
+  });
+}
+
+/* --- P1: clearing (bifurca todo) --- */
+function pregunta(n){
+  paso=n;
+  if(n===1){
+    decir("¿Estás en el clearing o tenés atrasos? Acá eso no te frena.",'ia',()=>opciones([
+      {t:"Sí, estoy en clearing",f:()=>setClearing('si')},
+      {t:"No",f:()=>setClearing('no')},
+      {t:"No estoy seguro",f:()=>setClearing('nose')}
+    ]));
+  }
+  if(n===2) preguntaEntrega();
+  if(n===3) preguntaCuota();
+}
+
+function setClearing(v){
+  user.clearing=v;
+  if(v==='no'){
+    user.plan='ambos';
+    decir("Listo.",'ia',()=>setTimeout(preguntaEntrega,350));
+  }else{
+    user.plan='casa';
+    const min=STOCK.filter(a=>a.credito_propio).reduce((a,c)=>entregaMinima(c.precio_usd)<entregaMinima(a.precio_usd)?c:a);
+    decir("Con eso trabajamos todos los días. Vas por el <b>crédito de la casa</b>: dos garantes y 50% de entrega. Desde <b>"+fmtD(entregaMinima(min.precio_usd))+"</b>.",'ia',()=>{
+      setTimeout(preguntaEntrega,450);
+    });
+  }
+}
+
+/* --- P2: entrega --- */
+function preguntaEntrega(){
+  paso=2;
+  const elegibles=STOCK.filter(a=>user.plan==='casa'?a.credito_propio:true);
+  const min=elegibles.reduce((a,c)=>entregaMinima(c.precio_usd)<entregaMinima(a.precio_usd)?c:a);
+  const piso=entregaMinima(min.precio_usd);
+  const base=Math.ceil(piso/500)*500;
+
+  const opts=[];
+  if(user.plan==='ambos') opts.push({t:"No tengo entrega",f:()=>setEntrega(0,"Sin entrega")});
+  opts.push({t:fmtD(base),f:()=>setEntrega(base,fmtD(base))});
+  opts.push({t:fmtD(base*1.6),f:()=>setEntrega(Math.round(base*1.6),fmtD(base*1.6))});
+  opts.push({t:fmtD(base*2.5),f:()=>setEntrega(Math.round(base*2.5),fmtD(base*2.5))});
+  opts.push({t:"Entrego mi auto",cls:"permuta",f:()=>permutaFlow()});
+
+  const txt = user.plan==='casa'
+    ? "¿Cuánto podés poner de entrega?"
+    : "¿Con cuánto arrancás?";
+  decir(txt,'ia',()=>opciones(opts));
+}
+function setEntrega(v,t){
+  user.entrega=v;user.entregaTxt=t;user.permuta=false;
+  if(v===0) user.plan='banco';
+  else if(user.plan==='ambos') user.plan='ambos';
+  setTimeout(preguntaCuota,300);
+}
+function permutaFlow(){
+  user.permuta=true;
+  decir("Bien. Hernán te lo tasa hoy — decile marca, modelo y año.",'ia',()=>{
+    user.entregaTxt="Permuta a tasar";
+    chips.innerHTML='<button class="chip permuta" onclick="ir(\'vend\')">Escribirle a Hernán →</button>'+
+                    '<button class="chip" onclick="preguntaEntrega()">Poner un monto igual</button>';
+  });
+}
+
+/* --- P3: cuota --- */
+function preguntaCuota(){
+  paso=3;
+  decir("¿Cuánto podés pagar por mes?",'ia',()=>opciones([
+    {t:"$ 10.000",f:()=>setCuota(10000)},
+    {t:"$ 15.000",f:()=>setCuota(15000)},
+    {t:"$ 22.000",f:()=>setCuota(22000)},
+    {t:"$ 30.000",f:()=>setCuota(30000)},
+    {t:"Más de $ 40.000",f:()=>setCuota(45000)}
+  ]));
+}
+function setCuota(v){user.cuota=v;cerrar()}
+
+/* --- Cierre --- */
+function cerrar(){
+  listo=true;
+  $('rEnt').value=user.entrega;
+  $('rCuo').value=user.cuota;
+  const r=resultado();
+  const txt = r.length
+    ? "Tengo <b>"+r.length+" auto"+(r.length>1?"s":"")+"</b> para vos."
+    : "Con esos números no llego. Te dejo cuánto falta.";
+  decir(txt,'ia',()=>{
+    chips.innerHTML='<button class="chip cta" onclick="ir(\'autos\')">Ver mis autos →</button>';
+    pintar();
+  });
+}
+
+/* --- texto libre --- */
+function mandar(){
+  const i=$('txt'), v=i.value.trim();
+  if(!v) return;
+  i.value='';$('send').disabled=true;chips.innerHTML='';
+  decir(v,'yo');
+  setTimeout(()=>interpretar(v),420);
+}
+const nums=t=>{const m=t.replace(/[.,]/g,"").match(/\d+/g);return m?m.map(Number):[]};
+function interpretar(t){
+  const b=t.toLowerCase(), n=nums(b);
+  if(paso===1){
+    if(/(si|sí|estoy|tuve|debo|atras|clearing|deuda)/.test(b)) return setClearing('si');
+    if(/(no|limpio|nunca|ninguno)/.test(b)) return setClearing('no');
+    return decir("Un sí o un no me alcanza.",'ia',()=>pregunta(1));
+  }
+  if(paso===2){
+    if(/(auto|camioneta|moto|entrego|permuta|usado)/.test(b)&&!n.length) return permutaFlow();
+    if(/(nada|no tengo|cero|ning)/.test(b)){
+      if(user.plan==='casa') return decir("El crédito de la casa pide 50% sí o sí. ¿Tenés un auto para entregar?",'ia',()=>preguntaEntrega());
+      return setEntrega(0,"Sin entrega");
+    }
+    let v=n[0]||0; if(v>0&&v<100) v*=1000;
+    if(v>500){
+      const usd = v>80000 ? Math.round(v/CFG.financiacion.tipo_cambio_usd_uyu) : v;
+      return decir("Anotado: "+fmtD(usd)+" de entrega.",'ia',()=>setEntrega(usd,fmtD(usd)));
+    }
+    return decir("¿Me lo ponés en un número?",'ia',()=>preguntaEntrega());
+  }
+  if(paso===3){
+    let v=n[0]||0; if(v>0&&v<100) v*=1000;
+    if(v>=3000&&v<=200000) return decir("Perfecto, "+fmtU(v)+" por mes.",'ia',()=>setCuota(v));
+    return decir("Tirame una cuota mensual en pesos, tipo 15.000.",'ia',()=>preguntaCuota());
+  }
+  decir("Te dejé las opciones en <b>Mi próximo auto</b>.",'ia',()=>{
+    chips.innerHTML='<button class="chip cta" onclick="ir(\'autos\')">Ver mis autos →</button>';
+  });
+}
+
+/* ===========================================================
+   MATCHEO — evalúa cada auto contra ambos planes
+   =========================================================== */
+function evaluar(a){
+  const out=[];
+  const permiteCasa = a.credito_propio && user.entrega>0;
+  const permiteBanco = user.clearing==='no';
+
+  if(permiteCasa && entregaMinima(a.precio_usd)<=user.entrega){
+    const c=calcPlanCasa(a.precio_usd,user.entrega,user.meses);
+    if(c!==null) out.push({plan:'casa',cuotaUsd:c,cuotaUyu:usd2uyu(c),entrega:Math.min(user.entrega,entregaMaxima(a.precio_usd))});
+  }
+  if(permiteBanco){
+    const c=calcPlanBanco(a.precio_usd);
+    out.push({plan:'banco',cuotaUyu:c,entrega:0});
+  }
+  const viables=out.filter(o=>o.cuotaUyu<=user.cuota);
+  if(!viables.length) return null;
+  return viables.sort((x,y)=>x.cuotaUyu-y.cuotaUyu)[0];
+}
+function resultado(){
+  return STOCK.map(a=>({auto:a,fin:evaluar(a)}))
+              .filter(r=>r.fin)
+              .sort((x,y)=>y.auto.precio_usd-x.auto.precio_usd);
+}
+
+/* ===========================================================
+   RENDER
+   =========================================================== */
+function setPlazo(m){
+  user.meses=m;
+  [12,18,24].forEach(x=>$('p'+x).classList.toggle('on',x===m));
+  pintar();
+}
+function toggleAjuste(){
+  if(!listo) return;
+  ajusteOn=!ajusteOn;
+  $('ajuste').classList.toggle('on',ajusteOn);
+  pintar();
+}
+function moverEnt(){user.entrega=+$('rEnt').value;user.entregaTxt=fmtD(user.entrega);pintar()}
+function moverCuo(){user.cuota=+$('rCuo').value;pintar()}
+
+function pintar(){
+  const lista=$('lista');
+  if(!listo){
+    $('ajuste').style.opacity=.4;$('ajuste').style.pointerEvents='none';
+    lista.innerHTML='<div class="vacio"><h3>Tu lista está vacía</h3><p>En cuanto me cuentes tu situación, acá aparecen solo los autos que realmente entran.</p><button class="btn-linea" onclick="ir(\'chat\')">Ir al chat</button></div>';
+    return;
+  }
+  $('ajuste').style.opacity=1;$('ajuste').style.pointerEvents='auto';
+  $('plazos').classList.toggle('oculto', user.plan==='banco');
+  $('lblEnt').textContent=fmtD(user.entrega);
+  $('lblCuo').innerHTML=fmtU(user.cuota)+' <i>/mes</i>';
+
+  const r=resultado();
+  $('conteo').innerHTML = r.length? '<b>'+r.length+' autos</b> entran con estos números' : 'Nada entra con estos números';
+  const b=$('badge');
+  if(r.length){b.textContent=r.length;b.classList.remove('oculto')}else{b.classList.add('oculto')}
+
+  if(!r.length){ vacio(lista); return; }
+
+  $('mTit').textContent="Tenemos "+r.length+" para vos";
+  $('mSub').innerHTML = user.entrega
+    ? "Con <b>"+fmtD(user.entrega)+"</b> de entrega y hasta <b>"+fmtU(user.cuota)+"/mes</b>."
+    : "Crédito bancario, 60 cuotas, sin entrega. Hasta <b>"+fmtU(user.cuota)+"/mes</b>.";
+  lista.innerHTML=r.map((x,i)=>card(x,i)).join('');
+}
+
+function vacio(lista){
+  // El auto más cercano: el de menor entrega mínima entre los elegibles
+  const eleg=STOCK.filter(a=>user.plan==='casa'?a.credito_propio:true);
+  const cand=eleg.reduce((a,c)=>entregaMinima(c.precio_usd)<entregaMinima(a.precio_usd)?c:a);
+  const minEnt=entregaMinima(cand.precio_usd);
+  const faltaEnt=Math.max(minEnt-user.entrega,0);
+  const cuotaAhi=calcPlanCasa(cand.precio_usd,minEnt,user.meses);
+  const faltaCuo=Math.max(usd2uyu(cuotaAhi)-user.cuota,0);
+
+  $('mTit').textContent="Todavía no llego";
+  $('mSub').textContent="Pero te digo exactamente cuánto falta.";
+
+  let html='<div class="vacio">';
+  html+='<h3>'+cand.marca+' '+cand.modelo+' '+cand.anio+'</h3>';
+  html+='<p>Es el más accesible que tengo hoy: <b>'+fmtD(cand.precio_usd)+'</b>.</p>';
+  if(faltaEnt>0){
+    html+='<div class="brecha"><b>'+fmtD(faltaEnt)+'</b><span>Es lo que te falta de entrega para llegar a este auto. La entrega mínima es '+fmtD(minEnt)+'.</span></div>';
+  }
+  if(faltaCuo>0){
+    html+='<div class="brecha"><b>'+fmtU(faltaCuo)+'</b><span>Es lo que falta en la cuota mensual. A '+user.meses+' cuotas queda en '+fmtD(cuotaAhi)+' ('+fmtU(usd2uyu(cuotaAhi))+').</span></div>';
+  }
+  html+='<button class="btn-linea" onclick="pedirDesdeVacio(\''+cand.id+'\')">Escribirle a Hernán igual</button>';
+  html+='<p style="font-size:12.5px;margin-top:6px">Si tenés un auto para entregar, la tasación puede cubrir la diferencia. Vale la consulta.</p>';
+  html+='</div>';
+  lista.innerHTML=html;
+}
+function pedirDesdeVacio(id){
+  const a=STOCK.find(x=>x.id===id);
+  user.auto=a.marca+' '+a.modelo+' '+a.anio;user.autoObj=a;ir('vend');
+}
+
+function card(x,i){
+  const a=x.auto, f=x.fin;
+  const esCasa = f.plan==='casa';
+  const cuotaTxt = esCasa ? fmtD(f.cuotaUsd) : fmtU(f.cuotaUyu);
+  const cuotaSub = esCasa ? '≈ '+fmtU(f.cuotaUyu)+' · '+user.meses+' cuotas' : CFG.financiacion.plazo_banco+' cuotas en pesos';
+  return '<div class="card" style="animation-delay:'+(i*.04)+'s">'+
+    '<div class="foto">'+
+      '<svg width="66" height="66" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="1.2"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></svg>'+
+      '<div class="tag">'+(a.empresa==='grit'?'Grit':'Más Autos')+'</div>'+
+      '<div class="tag plan'+(esCasa?'':' banco')+'">'+(esCasa?'Crédito de la casa':'Crédito bancario')+'</div>'+
+    '</div>'+
+    '<div class="card-body">'+
+      '<h3>'+a.marca+' '+a.modelo+'</h3>'+
+      '<div class="specs">'+a.anio+' · '+a.km.toLocaleString("es-UY")+' km · '+a.combustible+' · '+fmtD(a.precio_usd)+'</div>'+
+      '<div class="fin">'+
+        (esCasa?'<div class="fin-row"><span>Entrega</span><b>'+fmtD(f.entrega)+'</b></div>':'')+
+        '<div class="fin-row big"><span>Cuota</span><b>'+cuotaTxt+'</b></div>'+
+        '<div class="fin-row"><span>'+cuotaSub+'</span><b></b></div>'+
+        '<small>'+(esCasa?'Requiere dos garantes. Sujeto a aprobación. Incluye gastos de títulos.':'Sujeto a aprobación crediticia bancaria.')+'</small>'+
+      '</div>'+
+      '<button class="wa" onclick="pedir(\''+a.id+'\')">'+
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.1c.1.2.1.4 0 .6l-.4.5-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>'+
+        'Pedir pre-aprobación</button>'+
+    '</div></div>';
+}
+function pedir(id){
+  const a=STOCK.find(x=>x.id===id);
+  user.auto=a.marca+' '+a.modelo+' '+a.anio;user.autoObj=a;ir('vend');
+}
+
+/* ===========================================================
+   WHATSAPP — patrón getWhatsAppCustomLink() de la landing
+   =========================================================== */
+function armarLinkWA(){
+  const a=user.autoObj;
+  const number = (a && a.empresa==='grit') ? CFG.contacto.whatsapp_grit : CFG.contacto.whatsapp_mas_autos;
+  let text='';
+  if(!a){
+    text=`Hola, vengo de la app Mi Próximo Auto. Quiero que me ayuden a encontrar un auto. Ref: ${REF}`;
+  }else if(user.permuta){
+    text=`Hola, vengo de la app Mi Próximo Auto. Me interesa el ${a.marca} ${a.modelo} ${a.anio}. Tengo un auto para entregar y quiero que me lo tasen. Puedo pagar una cuota de aprox. ${fmtU(user.cuota)} UYU. Ref: ${REF}`;
+  }else{
+    const f=evaluar(a);
+    if(f && f.plan==='casa'){
+      text=`Hola, vengo de la app Mi Próximo Auto. Me interesa el ${a.marca} ${a.modelo} ${a.anio}. Quiero solicitar la pre-aprobación del Crédito de la Casa con una entrega inicial de ${fmtD(f.entrega)} y ${user.meses} cuotas de ${fmtD(f.cuotaUsd)}. Ref: ${REF}`;
+    }else if(f && f.plan==='banco'){
+      text=`Hola, vengo de la app Mi Próximo Auto. Me interesa el ${a.marca} ${a.modelo} ${a.anio}. Quiero solicitar pre-aprobación del crédito bancario 100% en pesos de ${CFG.financiacion.plazo_banco} cuotas de aprox. ${fmtU(f.cuotaUyu)} UYU. Ref: ${REF}`;
+    }else{
+      text=`Hola, vengo de la app Mi Próximo Auto. Me interesa el ${a.marca} ${a.modelo} ${a.anio}. Hoy llego con ${fmtD(user.entrega)} de entrega y ${fmtU(user.cuota)} por mes. ¿Se puede armar? Ref: ${REF}`;
+    }
+  }
+  return {url:`https://wa.me/${number}?text=${encodeURIComponent(text)}`, text};
+}
+function abrirWA(){
+  const l=armarLinkWA();
+  alert("Se abre WhatsApp con este mensaje:\n\n"+l.text+"\n\n(En producción: window.open del link wa.me. La sesión completa queda guardada bajo "+REF+" para que Chatwoot muestre la ficha.)");
+}
+
+/* ===========================================================
+   NAVEGACIÓN
+   =========================================================== */
+const HEAD={
+  chat:["Asistente","Te armo el auto en 3 preguntas"],
+  autos:["Mi próximo auto","Solo lo que realmente entra"],
+  vend:["Tu vendedor","Hernán · Grit + Más Autos"]
+};
+function ir(v){
+  ['vChat','vAutos','vVend'].forEach(id=>$(id).classList.remove('on'));
+  ['nAutos','nChat','nVend'].forEach(id=>$(id).classList.remove('on'));
+  if(v==='chat'){$('vChat').classList.add('on');$('nChat').classList.add('on')}
+  if(v==='autos'){$('vAutos').classList.add('on');$('nAutos').classList.add('on');pintar()}
+  if(v==='vend'){
+    $('vVend').classList.add('on');$('nVend').classList.add('on');
+    const cl={si:"En clearing",no:"Sin atrasos",nose:"A confirmar"};
+    $('rClearing').textContent=cl[user.clearing]||"—";
+    $('rPlan').textContent=user.plan==='casa'?"Crédito de la casa":user.plan==='banco'?"Crédito bancario":user.plan==='ambos'?"Ambos":"—";
+    $('rEntrega').textContent=user.entregaTxt;
+    $('rCuota').textContent=listo?fmtU(user.cuota)+" /mes":"—";
+    $('rAuto').textContent=user.auto;
+    $('refTxt').textContent="Ref: "+REF;
+  }
+  const h=HEAD[v]; if(h){$('tTit').textContent=h[0];$('tSub').textContent=h[1]}
+  $('pill').textContent=REF;
+}
+pintar();
+empezar();
+</script>
+</body>
+</html>

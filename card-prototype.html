@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Prototipo Cards — Ecosistema +autos / Grit (Plantilla Maestra)</title>
+
+  <!-- Google Fonts: Exo 2 (700, 800) y Manrope (300, 400, 500, 600, 700) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       TOKENS OFICIALES — PLANTILLA MAESTRA (+autos / Grit)
+       ========================================================================== */
+    :root[data-theme="light"] {
+      --bg-page: #FFFFFF;
+      --card-bg: #FFFFFF;
+      --card-border: #E9EAE1;
+      --grey-surface: #E9EAE1;
+      --accent: #F2820D;
+      --accent-hover: #D97209;
+      --wa: #25D366;
+      --wa-hover: #1EB856;
+      --wa-text: #04210C;
+      --text-main: #1A1612;
+      --text-muted: #666056;
+      --text-dim: #8C857B;
+      --radius: 8px;
+    }
+
+    :root[data-theme="dark"] {
+      --bg-page: #0A0907;
+      --card-bg: #0F0D0A;
+      --card-border: rgba(255, 255, 255, 0.14);
+      --grey-surface: #171410;
+      --accent: #F2820D;
+      --accent-hover: #D97209;
+      --wa: #25D366;
+      --wa-hover: #1EB856;
+      --wa-text: #04210C;
+      --text-main: #FFFFFF;
+      --text-body: #EDE9E3;
+      --text-muted: rgba(255, 255, 255, 0.72);
+      --text-dim: rgba(255, 255, 255, 0.45);
+      --radius: 8px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      text-shadow: none !important; /* Ley Plantilla Maestra: Cero Sombras de Texto */
+    }
+
+    body {
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px 16px;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Barra Superior de Control de Tema */
+    .top-panel {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--grey-surface);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      margin-bottom: 6px;
+    }
+
+    .top-panel-title b {
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      display: block;
+      color: var(--text-main);
+    }
+
+    .top-panel-title span {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .btn-theme-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 7px 14px;
+      border-radius: var(--radius);
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ==========================================================================
+       DISEÑO DE CARDS HORIZONTALES — SISTEMA UNIFICADO PLANTILLA MAESTRA
+       ========================================================================== */
+    .card-auto {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      min-height: 175px;
+      transition: all 0.2s ease-in-out;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .card-auto:hover {
+      border-color: var(--accent);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+
+    /* Columna Izquierda: Foto */
+    .card-foto {
+      width: 42%;
+      min-width: 140px;
+      max-width: 180px;
+      background: var(--grey-surface);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-right: 1px solid var(--card-border);
+      flex-shrink: 0;
+    }
+
+    .card-foto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 65%;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .card-auto:hover .card-foto img {
+      transform: scale(1.05);
+    }
+
+    /* Columna Derecha: Contenido & Datos */
+    .card-info {
+      flex: 1;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+    }
+
+    /* Cabecera de la Info: Título + Badge Plan */
+    .card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    .card-title {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Badge Plan (Plantilla Maestra / Landing style) */
+    .badge-plan {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .badge-plan.casa {
+      background: var(--accent);
+      color: #120C03;
+    }
+
+    .badge-plan.banco {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+    }
+
+    /* Specs del Vehículo */
+    .card-specs {
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-specs b {
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    /* Bloque Financiero (Fondo #E9EAE1 de la Plantilla Maestra) */
+    .fin-box {
+      background: var(--grey-surface);
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 10px;
+      border: 1px solid var(--card-border);
+    }
+
+    .fin-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 11.5px;
+      line-height: 1.35;
+    }
+
+    .fin-row span {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .fin-row b {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .fin-row.cuota-row {
+      margin-top: 3px;
+      padding-top: 3px;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    :root[data-theme="dark"] .fin-row.cuota-row {
+      border-top-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .fin-row.cuota-row .label {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .fin-row.cuota-row .monto {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 18.5px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .fin-note {
+      display: block;
+      font-size: 10px;
+      color: var(--text-muted);
+      text-align: right;
+      margin-top: 1px;
+    }
+
+    /* Botón WhatsApp Compacto (Plantilla Maestra #25D366) */
+    .btn-wa-card {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--wa);
+      color: var(--wa-text);
+      border: none;
+      border-radius: 6px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
+      transition: all 0.2s ease-in-out;
+    }
+
+    .btn-wa-card:hover {
+      background: var(--wa-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    }
+
+    .btn-wa-card svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+
+    <!-- Panel de Control y Tema -->
+    <div class="top-panel">
+      <div class="top-panel-title">
+        <b>Diseño Unificado (+autos / Grit)</b>
+        <span>Estética oficial: #FFFFFF + #E9EAE1 + #F2820D</span>
+      </div>
+      <button class="btn-theme-toggle" onclick="toggleTheme()">
+        <span id="lblTheme">Cambiar a Modo Oscuro</span>
+      </button>
+    </div>
+
+    <!-- CARD 1: Renault Clio (Crédito de la Casa) -->
+    <div class="card-auto">
+      <div class="card-foto">
+        <img src="assets/MA-RENAULT-CLIO-1993-01.jpg" alt="Renault Clio" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23888\' stroke-width=\'1.5\'><path d=\'M5 17H3v-5l2-5h14l2 5v5h-2\'/><circle cx=\'7\' cy=\'17\' r=\'2\'/><circle cx=\'17\' cy=\'17\' r=\'2\'/><path d=\'M9 17h6\'/></svg>'">
+      </div>
+      <div class="card-info">
+        <div>
+          <div class="card-head">
+            <h3 class="card-title">Renault Clio</h3>
+            <span class="badge-plan casa">Plan Casa</span>
+          </div>
+          <div class="card-specs">1993 · 1.234 km · <b>USD 3.790</b></div>
+
+          <div class="fin-box">
+            <div class="fin-row">
+              <span>Entrega inicial</span>
+              <b>USD 3.686</b>
+            </div>
+            <div class="fin-row cuota-row">
+              <span class="label">Cuota</span>
+              <span class="monto">USD 41</span>
+            </div>
+            <span class="fin-note">≈ $ 1.640 · 24 cuotas</span>
+          </div>
+        </div>
+
+        <button class="btn-wa-card" onclick="alert('Solicitud de pre-aprobación a WhatsApp con Ref: MPA-DEMO')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.1c.1.2.1.4 0 .6l-.4.5-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>
+          Pedir pre-aprobación
+        </button>
+      </div>
+    </div>
+
+    <!-- CARD 2: Fiat Strada (Crédito Bancario) -->
+    <div class="card-auto">
+      <div class="card-foto">
+        <img src="assets/GR-FIAT-STRADA-2019-03.jpg" alt="Fiat Strada" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23888\' stroke-width=\'1.5\'><path d=\'M5 17H3v-5l2-5h14l2 5v5h-2\'/><circle cx=\'7\' cy=\'17\' r=\'2\'/><circle cx=\'17\' cy=\'17\' r=\'2\'/><path d=\'M9 17h6\'/></svg>'">
+      </div>
+      <div class="card-info">
+        <div>
+          <div class="card-head">
+            <h3 class="card-title">Fiat Strada Adventure</h3>
+            <span class="badge-plan banco">Plan Banco</span>
+          </div>
+          <div class="card-specs">2019 · 140.000 km · <b>USD 12.990</b></div>
+
+          <div class="fin-box">
+            <div class="fin-row">
+              <span>Entrega inicial</span>
+              <b>Sin entrega</b>
+            </div>
+            <div class="fin-row cuota-row">
+              <span class="label">Cuota</span>
+              <span class="monto">$ 12.400</span>
+            </div>
+            <span class="fin-note">60 cuotas en pesos</span>
+          </div>
+        </div>
+
+        <button class="btn-wa-card" onclick="alert('Solicitud de pre-aprobación a WhatsApp con Ref: MPA-DEMO')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.1c.1.2.1.4 0 .6l-.4.5-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>
+          Pedir pre-aprobación
+        </button>
+      </div>
+    </div>
+
+    <!-- CARD 3: Chevrolet S10 -->
+    <div class="card-auto">
+      <div class="card-foto">
+        <img src="assets/MA-CHEVROLET-S10-2016-05.jpg" alt="Chevrolet S10" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23888\' stroke-width=\'1.5\'><path d=\'M5 17H3v-5l2-5h14l2 5v5h-2\'/><circle cx=\'7\' cy=\'17\' r=\'2\'/><circle cx=\'17\' cy=\'17\' r=\'2\'/><path d=\'M9 17h6\'/></svg>'">
+      </div>
+      <div class="card-info">
+        <div>
+          <div class="card-head">
+            <h3 class="card-title">Chevrolet S10 LT</h3>
+            <span class="badge-plan casa">Plan Casa</span>
+          </div>
+          <div class="card-specs">2016 · 128.000 km · <b>USD 18.990</b></div>
+
+          <div class="fin-box">
+            <div class="fin-row">
+              <span>Entrega inicial</span>
+              <b>USD 9.770</b>
+            </div>
+            <div class="fin-row cuota-row">
+              <span class="label">Cuota</span>
+              <span class="monto">USD 602</span>
+            </div>
+            <span class="fin-note">≈ $ 24.080 · 24 cuotas</span>
+          </div>
+        </div>
+
+        <button class="btn-wa-card" onclick="alert('Solicitud de pre-aprobación a WhatsApp con Ref: MPA-DEMO')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.1c.1.2.1.4 0 .6l-.4.5-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>
+          Pedir pre-aprobación
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      document.getElementById('lblTheme').textContent = next === 'light' ? 'Cambiar a Modo Oscuro' : 'Cambiar a Modo Claro';
+    }
+  </script>
+</body>
+</html>

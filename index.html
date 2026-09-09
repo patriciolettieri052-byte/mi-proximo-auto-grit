@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Mi Próximo Auto — Grit Automotores</title>
+
+  <!-- Google Fonts: Exo 2 (700, 800) y Manrope (400, 500, 600, 700) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos del Design System y App -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <div class="phone">
+
+    <!-- Header superior -->
+    <header class="top">
+      <div class="top-l">
+        <img src="img/logo.png" alt="Grit Automotores" class="logo-img">
+        <div class="top-txt">
+          <b id="tTit">Mi próximo auto</b>
+          <span id="tSub">Grit Automotores</span>
+        </div>
+      </div>
+      <div class="top-r">
+        <!-- Switch de Modo Claro / Oscuro -->
+        <button class="btn-theme" id="btnTheme" onclick="toggleTheme()" aria-label="Cambiar tema">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <div class="pill gris" id="pill">Grit Automotores®</div>
+      </div>
+    </header>
+
+    <!-- Vista 0: ONBOARDING INICIAL -->
+    <main class="vista on" id="vOnboarding">
+      <div class="onboarding-wrap">
+        <div class="onboarding-badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></svg>
+          <span>Grit Automotores</span>
+        </div>
+        
+        <h1 class="onboarding-tit">Encontrá tu próximo auto</h1>
+        <p class="onboarding-sub">Ingresá tus datos para personalizar tu plan de financiación y ver los vehículos acordes a tus posibilidades en 3 simples pasos.</p>
+
+        <form class="onboarding-form" id="formOnboarding" onsubmit="event.preventDefault(); comenzarOnboarding();">
+          <div class="form-group">
+            <label for="leadNombre" class="form-label">Nombre y apellido</label>
+            <input type="text" id="leadNombre" class="form-input" placeholder="Ej: Juan Pérez" required autocomplete="name">
+          </div>
+
+          <div class="form-group">
+            <label for="leadCelular" class="form-label">Número de celular (WhatsApp)</label>
+            <input type="tel" id="leadCelular" class="form-input" placeholder="Ej: 099 123 456" required autocomplete="tel">
+          </div>
+
+          <button type="submit" id="btnOnboarding" class="btn-onboarding">
+            <span>Comenzar búsqueda</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </form>
+
+        <div class="onboarding-footer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span>Tus datos solo se usarán para asesorarte de forma personalizada.</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Vista 1: CHAT -->
+    <main class="vista" id="vChat">
+      <div class="hilo" id="hilo" aria-live="polite"></div>
+      <div class="chips" id="chips"></div>
+      <div class="barra">
+        <input id="txt" placeholder="Escribí tu respuesta…" autocomplete="off"
+               onkeydown="if(event.key==='Enter')enviarTextoLibre()"
+               oninput="document.getElementById('send').disabled=!this.value.trim()">
+        <button class="enviar" id="send" disabled onclick="enviarTextoLibre()" aria-label="Enviar mensaje">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </main>
+
+    <!-- Vista 2: RESULTADOS (Mi próximo auto) -->
+    <main class="vista" id="vAutos">
+      <div class="match-head">
+        <h2 id="mTit">Búsqueda de vehículos</h2>
+        <p id="mSub">Completá los 3 pasos en el chat para visualizar las opciones acordes a tu presupuesto.</p>
+      </div>
+
+      <div class="plazos oculto" id="plazos">
+        <button class="plazo" onclick="setPlazo(12)" id="p12">12 cuotas</button>
+        <button class="plazo" onclick="setPlazo(18)" id="p18">18 cuotas</button>
+        <button class="plazo on" onclick="setPlazo(24)" id="p24">24 cuotas</button>
+      </div>
+
+      <div class="ajuste" id="ajuste" aria-expanded="false">
+        <div class="ajuste-head" onclick="toggleAjuste()">
+          <div>
+            <b>Probar con otros números</b>
+            <small id="ajLbl">Ver qué se abre si movés la entrega</small>
+          </div>
+          <div class="switch"></div>
+        </div>
+        <div class="ajuste-body">
+          <div class="slider-top">
+            <small>Entrega disponible</small>
+            <b id="lblEnt">USD 0</b>
+          </div>
+          <input type="range" id="rEnt" min="0" max="30000" step="100" value="0" oninput="moverEnt()">
+
+          <div class="slider-top">
+            <small>Cuota mensual</small>
+            <b id="lblCuo">$ 0 <i>/mes</i></b>
+          </div>
+          <input type="range" id="rCuo" min="4000" max="60000" step="500" value="12000" oninput="moverCuo()">
+
+          <div class="conteo" id="conteo"></div>
+        </div>
+      </div>
+
+      <div class="lista" id="lista"></div>
+    </main>
+
+    <!-- Vista 3: ASESOR COMERCIAL -->
+    <main class="vista" id="vVend">
+      <div class="ficha">
+        <div class="avatar">S</div>
+        <h3>Sebastián</h3>
+        <p>Asesor comercial — Grit Automotores</p>
+        <div class="tel-visible">+598 97 300 504</div>
+        <button class="wa" onclick="abrirWhatsAppComercial('sebastian')">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.1c.1.2.1.4 0 .6l-.4.5-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>
+          Escribirle por WhatsApp
+        </button>
+      </div>
+
+      <div class="resumen">
+        <h4>Lo que le llega con tu mensaje</h4>
+        <div class="dato"><span>Situación crediticia</span><b id="rClearing">—</b></div>
+        <div class="dato"><span>Plan</span><b id="rPlan">—</b></div>
+        <div class="dato"><span>Entrega</span><b id="rEntrega">—</b></div>
+        <div class="dato"><span>Cuota buscada</span><b id="rCuota">—</b></div>
+        <div class="dato"><span>Auto de interés</span><b id="rAuto">—</b></div>
+      </div>
+
+      <div class="ref" id="refTxt">Ref: —</div>
+      <div class="horario">Lunes a viernes 9 a 19 · Sábados 9 a 13<br>Nueva Palmira 2061 / 2064</div>
+    </main>
+
+    <!-- Navegación inferior persistente -->
+    <nav class="nav" id="nav">
+      <button onclick="ir('autos')" id="nAutos">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></svg>
+        <span>Mi próximo auto</span>
+        <div class="badge oculto" id="badge">0</div>
+      </button>
+      <button onclick="ir('chat')" id="nChat" class="on">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 11.5a8.4 8.4 0 01-9 8.4 8.5 8.5 0 01-3.8-.9L3 21l1.9-5.2A8.4 8.4 0 0112 3.1a8.4 8.4 0 019 8.4z"/></svg>
+        <span>Chat</span>
+      </button>
+      <button onclick="ir('vend')" id="nVend">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>Asesor</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- Scripts JavaScript -->
+  <script src="js/theme.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/stock.js"></script>
+  <script src="js/finance.js"></script>
+  <script src="js/matcher.js"></script>
+  <script src="js/session.js"></script>
+  <script src="js/whatsapp.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/ia.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

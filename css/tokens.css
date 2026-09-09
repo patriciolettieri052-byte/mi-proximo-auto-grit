@@ -1,0 +1,73 @@
+:root {
+  /* Default: Modo Claro (Plantilla Maestra #FFFFFF / #E9EAE1 / #F2820D) */
+  --bg-page: #FFFFFF;
+  --ink: #FFFFFF;
+  --ink-pleno: #FFFFFF;
+  --card-bg: #FFFFFF;
+  --card-dark: #FFFFFF;
+  --card-border: #E9EAE1;
+  --grey-surface: #E9EAE1;
+  --surface-2: #E9EAE1;
+  --line-divider: #E9EAE1;
+
+  --accent: #F2820D;
+  --accent-hover: #D97209;
+  --wa: #25D366;
+  --wa-hover: #1EB856;
+  --wa-text: #04210C;
+
+  --text-main: #1A1612;
+  --text-body: #1A1612;
+  --text-muted: #666056;
+  --text-dim: #8C857B;
+
+  --header-bg: #FFFFFF;
+  --header-text: #1A1612;
+  --header-border: #E9EAE1;
+
+  --bubble-ia: #E9EAE1;
+  --bubble-user: var(--accent);
+  --bubble-user-text: #120C03;
+
+  --radius-card: 8px;
+  --radius-btn: 8px;
+  --radius-badge: 4px;
+  --radius-bubble: 14px;
+  --radius-chip: 22px;
+  --nav-h: 62px;
+}
+
+[data-theme="dark"] {
+  --bg-page: #0A0907;
+  --ink: #0F0D0A;
+  --ink-pleno: #000000;
+  --card-bg: #0F0D0A;
+  --card-dark: #0F0D0A;
+  --card-border: rgba(255, 255, 255, 0.14);
+  --grey-surface: #171410;
+  --surface-2: #171410;
+  --line-divider: #28231B;
+
+  --accent: #F2820D;
+  --accent-hover: #D97209;
+  --wa: #25D366;
+  --wa-hover: #1EB856;
+  --wa-text: #04210C;
+
+  --text-main: #FFFFFF;
+  --text-body: #EDE9E3;
+  --text-muted: rgba(255, 255, 255, 0.72);
+  --text-dim: rgba(255, 255, 255, 0.45);
+
+  --header-bg: #0F0D0A;
+  --header-text: #FFFFFF;
+  --header-border: rgba(255, 255, 255, 0.14);
+
+  --bubble-ia: #171410;
+  --bubble-user: var(--accent);
+  --bubble-user-text: #120C03;
+}
+
+* {
+  text-shadow: none !important;
+}
