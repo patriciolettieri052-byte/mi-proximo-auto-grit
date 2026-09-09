@@ -1,105 +1,95 @@
-# Resumen de Sesión — App "Mi Próximo Auto"
-**Cliente:** Grupo Más Autos (Grit Automotores + Más Autos)  
-**Fecha:** 28 de Agosto, 2026  
-**Versión:** 1.0  
-**Estado:** ✅ Desarrollado, verificado y ejecutándose en entorno local (`http://localhost:3000`).
+# Resumen de Sesión — Ecosistema "Mi Próximo Auto"
+
+**Fecha:** 9 de Septiembre de 2026  
+**Clientes / Marcas:** Grupo Más Autos (+autos) & Grit Automotores  
+**Estado:** Ambas aplicaciones separadas, optimizadas y sincronizadas en sus respectivos repositorios de GitHub.
 
 ---
 
-## 1. Objetivos Cumplidos
+## 1. Objetivos Cumplidos en la Sesión
 
-1. **Lectura y Alineación con la Documentación:**
-   - Se revisó en orden la documentación oficial compuesta por los 5 archivos:
-     - `01-brief-maestro.md`: Contexto del negocio, métricas y reglas duras del crédito de la casa.
-     - `02-datos-y-motor-financiero.md`: Esquema de datos, redondeos asimétricos y ruteo a WhatsApp.
-     - `03-flujo-ui-design-system.md`: Flujo de 3 preguntas, UI mobile-first y tokens del sistema de diseño.
-     - `04-tickets-y-qa.md`: Especificación de 12 tickets de desarrollo y criterios de aceptación.
-     - `05-prompt-asistente.md`: System prompt del vendedor uruguayo para OpenAI y fallback.
-
-2. **Diseño y Estética del Prototipo:**
-   - Se tomó como referencia la estética y UX del prototipo `app-mi-proximo-auto-v3.html` (ancho máximo 480px, layout de teléfono, navegación inferior persistente).
-
-3. **Nueva Funcionalidad Solicitada (Dark / Light Mode):**
-   - Se agregó un conmutador en la barra superior (icono sol/luna) que permite alternar dinámicamente entre **Modo Oscuro (Dark)** y **Modo Claro (Light)**.
-   - Persistencia de la preferencia del usuario en `localStorage` y respeto a `prefers-color-scheme`.
-
-4. **Plan de Implementación Aprobado e Insumos:**
-   - Se creó el plan técnico de trabajo y se configuró la clave de API de OpenAI suministrada (`OPENAI_API_KEY`) para despliegue en Vercel/GitHub.
+### A. Optimización del Asistente y UX Conversacional
+1. **Saludo inicial conciso:** Eliminación de redundancias en el saludo del chat para evitar repetir la marca en cada turno.
+2. **Selector binario de Clearing:** Reducción a opciones directas (*"Sin atrasos"* / *"En Clearing"*) agilizando la calificación crediticia.
+3. **Detección universal de Permutas:** Captura del interés de entregar un vehículo usado en cualquier punto de la conversación. Se le explica al usuario los datos que necesitará (**marca, modelo, año, kilometraje y fotos**) y se ofrece el botón de derivación inmediata al asesor comercial por WhatsApp.
+4. **Respuestas IA más naturales:** Eliminación de frases mecánicas (como *"Registrado perfectamente"*) reemplazándolas por acuses profesionales y empáticos de hasta 12 palabras.
+5. **Restricción estricta de tasas:** No se mencionan porcentajes ni tasas de interés financiero en ninguna parte visible para el usuario final.
 
 ---
 
-## 2. Arquitectura de Archivos Desarrollada
+### B. Motor Financiero, Reactividad y Empty State
+1. **Cálculo dinámico en plazos:** Los botones de 12, 18 y 24 cuotas recalculan en tiempo real la cuota mensual para el Crédito de la Casa al ajustar el slider de entrega.
+2. **Fallback fluido a Plan Banco:** Cuando el usuario desliza la entrega a USD 0, la interfaz conmuta automáticamente a la simulación del Plan Banco (60 cuotas en pesos).
+3. **Empty State unificado:** Cuando el presupuesto no alcanza para el stock disponible, se presenta la tarjeta oficial `.card-auto` del vehículo más cercano con su foto real y etiqueta de cuota mensual completa, suprimiendo desgloses confusos de diferencias.
 
-Se modularizó todo el código fuente del proyecto en una estructura limpia y mantenible:
+---
+
+### C. Depuración y Deduplicación de Stock
+1. **Análisis de 105 registros previos y 331 publicaciones activas de Multiaviso:** Se detectó que las 105 filas originales correspondían a 35 vehículos duplicados cruzados entre ambas automotoras.
+2. **Separación limpia por empresa:**
+   - **Grupo Más Autos:** 54 vehículos catalogados (prefijo `MA-...`), asignados a **Hernán**.
+   - **Grit Automotores:** 51 vehículos catalogados (prefijo `GR-...`), asignados a **Sebastián**.
+3. **Fotos reales vinculadas:** El 100% de las unidades cuenta con su fotografía real en alta definición descargada localmente en la carpeta `assets/`.
+
+---
+
+### D. Pulido de Plantillas de WhatsApp
+1. **Eliminación de prefijos:** Se retiró la frase *"vengo de la app mi..."* de todos los mensajes de WhatsApp para mayor naturalidad.
+2. **Plantilla dedicada para Permuta:** Mensaje directo para coordinar tasación oficial, tanto con auto de interés seleccionado como sin él.
+3. **Ruteo 100% independiente:** Cada aplicación deriva exclusivamente al asesor correspondiente de la firma.
+
+---
+
+### E. Separación en Dos Repositorios Independientes
+
+Se dividió el proyecto en dos repositorios de GitHub autónomos:
 
 ```
-/
-├── index.html                  # Shell HTML5 semántico con vistas y componentes
-├── server.js                   # Servidor local Node.js (sirve estáticos y API local)
-├── vercel.json                 # Configuración de ruteo para despliegue en Vercel
-├── .env                        # Clave de API de OpenAI resguardada en servidor
-├── RESUMEN_SESION.md           # Resumen ejecutivo en formato Markdown
-├── css/
-│   ├── tokens.css              # Variables de color (Modo Oscuro / Claro) y dimensiones
-│   └── app.css                 # Estilos de vistas, chat, tarjetas, sliders y navegación (0 hex hardcodeados)
-├── js/
-│   ├── theme.js                # Control del conmutador Dark/Light mode con localStorage
-│   ├── config.js               # Carga y expone data/config.json
-│   ├── stock.js                # Carga y sanea data/stock.json con validaciones de integridad
-│   ├── finance.js              # Motor financiero puro (calcPlanBanco, calcPlanCasa, etc.)
-│   ├── matcher.js              # Matcheo y ordenamiento de autos por precio descendente
-│   ├── chat.js                 # Máquina de estados de 3 preguntas, chips y texto libre
-│   ├── ia.js                   # Cliente API para /api/asistente con fallback local regex
-│   ├── render.js               # Renderizado de tarjetas, plazos (12/18/24), ajuste y estado vacío
-│   ├── whatsapp.js             # Generación de enlaces wa.me con Ref y moneda explícita
-│   ├── session.js              # Gestión de sesión, Ref (MPA-XXX) y persistencia local
-│   ├── analytics.js            # Rastreo de eventos Meta Pixel y GA4
-│   └── main.js                 # Arranque, ruteo entre vistas y listeners
-├── data/
-│   ├── config.json             # Parámetros del sistema (TC 40, factores, contactos)
-│   └── stock.json              # Inventario estático inicial de vehículos
-└── api/
-    └── asistente.js            # Function Serverless para Vercel (OpenAI gpt-4o-mini)
+Ecosistema Grupo Mas Autos/
+├── app valor cuota/          -> Repositorio 1: Grupo Más Autos (+autos)
+└── app valor cuota grit/     -> Repositorio 2: Grit Automotores
 ```
 
----
+#### Comparativa de Configuración:
 
-## 3. Puntos Clave de la Implementación Técnica
-
-### Motor Financiero (`js/finance.js`)
-- **Plan Banco (UYU):** 60 cuotas sin entrega. Redondeo `Math.floor` a la centena en pesos (`$ 8.600`).
-- **Plan Casa (USD):** Requiere 2 garantes y 50% de entrega mínima. Gastos de títulos ($550 split 50/50).
-- **Plazos:** Soporta 12, 18 y 24 meses. Redondeo `Math.ceil` al entero en dólares (`USD 295`).
-- **Verificación:** Pruebas unitarias de Node.js ejecutadas con 100% de coincidencia sobre la tabla de valores de QA.
-
-### Asistente IA (`api/asistente.js` & `js/ia.js`)
-- Conectado con OpenAI `gpt-4o-mini` con formato de respuesta JSON forzado.
-- Tono de vendedor uruguayo cercano sin mencionar números ni inventar stock.
-- Manejo de bandera `need_human` cuando el usuario hace preguntas fuera de alcance (dirección, horarios, papeles), mostrando un chip verde a WhatsApp ("Preguntale a Hernán →").
-- Timeout de 4s y degradación a parser regex local transparente.
-
-### Visual & Accesibilidad (`css/app.css` & `css/tokens.css`)
-- `css/app.css` totalmente libre de códigos hexadecimales sueltos (todos referenciados vía `var(--...)`).
-- Cumple reglas inquebrantables: sin `text-shadow`, objetivos táctiles ≥ 42px, moneda explícita (`USD 295` o `$ 20.200`) y peso de datos financieros ≥ 500.
+| Elemento | Repositorio 1: Grupo Más Autos | Repositorio 2: Grit Automotores |
+| :--- | :--- | :--- |
+| **Repositorio GitHub** | [patriciolettieri052-byte/mi-proximo-auto](https://github.com/patriciolettieri052-byte/mi-proximo-auto.git) | [patriciolettieri052-byte/mi-proximo-auto-grit](https://github.com/patriciolettieri052-byte/mi-proximo-auto-grit.git) |
+| **Directorio local** | `app valor cuota` | `app valor cuota grit` |
+| **Asesor comercial** | **Hernán** | **Sebastián** |
+| **Teléfono WhatsApp** | `+598 96 776 442` (`59896776442`) | `+598 97 300 504` (`59897300504`) |
+| **Inventario limpio** | 54 unidades (`MA-...`) | 51 unidades (`GR-...`) |
+| **Identidad / Badge** | `Grupo Más Autos®` | `Grit Automotores®` |
+| **Logotipo / Favicon** | Isologo Más Autos | Isologo circular Grit (recorte HD transparente) |
+| **System Prompt IA** | Identificado como Grupo Más Autos | Identificado como Grit Automotores |
 
 ---
 
-## 4. Análisis de la Base de Datos Real (`Multiaviso-Pub-Activas-20260821192137.xlsx`)
-
-Se realizó la inspección directa del archivo Excel oficial del cliente ubicado en `documentacion/`:
-- **Resultado:** De los 367 registros activos en la planilla, se confirmó que **NO existe una Ford EcoSport** en la base de datos real.
-- Los únicos vehículos de marca Ford activos son camionetas **Ford Ranger** (años 2010 y 2011). La EcoSport que figuraba en el prototipo pertenecía únicamente al stock mock de prueba.
+### F. Integración del Isologotipo Oficial de Grit
+1. **Extracción y limpieza:** Se procesó la imagen del logo circular de Grit, aplicando recorte elíptico de alta precisión con suavizado de bordes y fondo transparente.
+2. **Archivos actualizados:**
+   - `img/logo.png` con la imagen optimizada.
+   - `index.html` con la vinculación en el header y etiqueta `<link rel="icon">` para favicon del navegador.
+3. **Sincronización:** Commit `4e7eb37` pusheado a la rama `main` de `mi-proximo-auto-grit`.
 
 ---
 
-## 5. Estado Actual e Instrucciones de Prueba Local
+## 2. Dónde Quedamos (Estado Actual del Sistema)
 
-El entorno local se encuentra **activo y corriendo en segundo plano**:
+1. **Ambas aplicaciones están 100% funcionales y sincronizadas en GitHub:**
+   - **Más Autos:** `https://github.com/patriciolettieri052-byte/mi-proximo-auto.git` (rama `main`).
+   - **Grit Automotores:** `https://github.com/patriciolettieri052-byte/mi-proximo-auto-grit.git` (rama `main`).
+2. **El inventario no contiene autos repetidos** y cada marca gestiona exclusivamente sus propios leads y consultas de WhatsApp.
+3. **Ambas apps cuentan con su backend `/api/asistente` y `/api/leads`** listos para ejecución local (servidor Node) o serverless en Vercel.
 
-- **URL de prueba:** [http://localhost:3000](http://localhost:3000)
-- **Servidor:** `server.js` (procesa archivos estáticos y peticiones de IA a `/api/asistente`).
+---
 
-### Para redesplegar en Vercel o GitHub:
-1. Subir los archivos a tu repositorio de GitHub.
-2. Importar el proyecto en Vercel.
-3. Configurar la variable de entorno `OPENAI_API_KEY` en el panel de Vercel.
+## 3. Próximos Pasos Recomendados
+
+1. **Despliegue de Grit Automotores en Vercel:**
+   - Entrar a [Vercel](https://vercel.com) e importar el repositorio `mi-proximo-auto-grit`.
+   - Asignar la variable de entorno `OPENAI_API_KEY`.
+   - Ejecutar el Deploy.
+2. **Validación en vivo:**
+   - Probar flujo completo desde móvil en ambos dominios de Vercel.
+   - Probar clic a WhatsApp tanto para Hernán (Más Autos) como para Sebastián (Grit).
