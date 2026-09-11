@@ -5,13 +5,27 @@ let STOCK = [];
 
 async function loadStock() {
   try {
+    // 1. Intentar cargar en tiempo real desde Supabase
+    if (typeof fetchFromSupabase === 'function') {
+      const remoteData = await fetchFromSupabase('grit_vehiculos', '?select=*&estado=eq.disponible&order=orden.asc');
+      if (Array.isArray(remoteData) && remoteData.length > 0) {
+        STOCK = sanitizeStock(remoteData);
+        return STOCK;
+      }
+    }
+  } catch (supabaseErr) {
+    console.warn('Supabase no disponible, usando fallback local:', supabaseErr);
+  }
+
+  // 2. Fallback de alta disponibilidad a data/stock.json
+  try {
     const res = await fetch('data/stock.json');
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const rawData = await res.json();
     STOCK = sanitizeStock(rawData);
     return STOCK;
   } catch (err) {
-    console.error('Error al cargar stock.json:', err);
+    console.error('Error total al cargar stock:', err);
     STOCK = [];
     return [];
   }

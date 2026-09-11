@@ -86,13 +86,15 @@ El sistema aplica la matriz financiera oficial de Grit Automotores:
 
 ## 5. Inventario de Vehículos y Ruteo Comercial
 
-- **Base de Datos de Stock:** `data/stock.json` (51 vehículos limpios de Grit Automotores `GR-...`).
-- **Deduplicación:**
-  - Se procesaron las publicaciones correspondientes a Grit Automotores con fotos reales en `assets/`.
+- **Base de Datos Principal:** Supabase PostgreSQL — tabla `grit_vehiculos` (tiempo real).
+- **Fallback Estático:** `data/stock.json` (42 unidades activas de Grit Automotores con código `GR-...`).
+- **Activos Fotográficos y CDN:**
+  - 100% de las 42 unidades activas cuentan con fotografía real en alta resolución alojadas en el bucket público de Supabase Storage: `vehiculos/grit/`.
+  - Zero cards sin fotos: se corrigieron las fotos con acentos (`Citroën C3`, `GLA200`) y se eliminaron las unidades vendidas/despublicadas.
 - **Ruteo Comercial a WhatsApp:**
-  - Configuración centralizada de asesor en `data/config.json`: **Sebastián** (`59897300504`).
-  - Cada auto en `data/stock.json` cuenta con el atributo `"asesor": "sebastian"`.
-  - Al solicitar pre-aprobación o permuta, el mensaje de WhatsApp se dirige a Sebastián.
+  - Configuración centralizada de asesor en Supabase (`grit_config`) y fallback en `data/config.json`: **Sebastián** (`59897300504`).
+  - Cada auto cuenta con el atributo `"asesor": "sebastian"`.
+  - Al solicitar pre-aprobación o permuta, el mensaje de WhatsApp se dirige automáticamente a Sebastián.
 
 ---
 
@@ -103,24 +105,25 @@ El sistema aplica la matriz financiera oficial de Grit Automotores:
 app-valor-cuota/
 ├── api/
 │   ├── asistente.js     # Serverless Function: Proxy seguro con OpenAI GPT-4o-mini
-│   └── leads.js         # Serverless Function: Captura y registro de leads
-├── assets/              # Fotografías reales de vehículos en stock
+│   └── leads.js         # Serverless Function: Captura y registro de leads en Supabase
+├── assets/              # Fotografías locales de vehículos (respaldo)
 ├── css/
 │   ├── app.css          # Estilos principales de componentes y vistas
 │   └── tokens.css       # Variables de diseño (colores, tipografía, espaciado)
 ├── data/
-│   ├── config.json      # Parámetros financieros y equipo comercial
-│   ├── leads.json       # Almacén de prospectos capturados
-│   └── stock.json       # Catálogo de vehículos con fotos y asesor asignado
+│   ├── config.json      # Respaldo de parámetros financieros y asesor
+│   ├── leads.json       # Respaldo local de prospectos capturados
+│   └── stock.json       # Respaldo de catálogo de vehículos activos con fotos CDN
 ├── img/
-│   └── logo.png         # Isologotipo oficial de Grupo Más Autos
+│   └── logo.png         # Isologotipo oficial de Grit Automotores
 ├── js/
 │   ├── main.js          # Orquestador del ciclo de vida de la aplicación y navegación
 │   ├── chat.js          # Lógica conversacional y flujo de preguntas
 │   ├── finance.js       # Motor de cálculo financiero determinista
 │   ├── matcher.js       # Algoritmo de compatibilidad y ranking de autos
 │   ├── render.js        # Renderizado de cards de vehículos y UI
-│   ├── stock.js         # Carga y filtrado del catálogo de stock
+│   ├── stock.js         # Carga híbrida (Supabase con fallback a stock.json)
+│   ├── supabase.js      # Cliente liviano vanilla fetch para Supabase API & CDN
 │   ├── session.js       # Manejo de sesión de usuario y storage local
 │   ├── theme.js         # Control de Modo Claro / Modo Oscuro
 │   └── whatsapp.js      # Generación de enlaces y mensajes a WhatsApp con asesor dinámico
@@ -130,31 +133,42 @@ app-valor-cuota/
 └── DOCUMENTACION_PROYECTO.md # Documento maestro del proyecto
 ```
 
-### 6.2 Integración de Inteligencia Artificial
+### 6.2 Integración con Supabase y Base de Datos
+- **Proyecto Supabase Único:** Multi-inquilino segregado por tablas.
+  - Vehículos: `grit_vehiculos` (RLS público para lectura).
+  - Leads: `grit_leads` (RLS inserción anónima segura, lectura restringida).
+  - Config: `grit_config` (RLS lectura pública).
+  - CDN Storage: Bucket público `vehiculos` con ruta `grit/`.
+- **Carga Híbrida Inteligente:** El cliente `js/stock.js` consulta `grit_vehiculos` vía `js/supabase.js`. Si no hay conexión o falla la API, conmuta de inmediato a `data/stock.json` sin interrumpir la experiencia de usuario.
+
+### 6.3 Integración de Inteligencia Artificial
 - **Modelo:** `gpt-4o-mini` de OpenAI.
 - **Seguridad:** La clave `OPENAI_API_KEY` se gestiona en variables de entorno del servidor (Vercel Serverless), sin exponer credenciales en el frontend del cliente.
 - **Formato Estricto:** La API responde en formato JSON estructurado con temperatura controlada (0.6) y límite de tokens para máxima velocidad.
 
-### 6.3 Despliegue en Producción
-- **Plataforma:** Vercel Zero-Config.
-- **Enrutamiento:** Archivos estáticos servidos desde la raíz y APIs serverless en `/api/*`.
-- **Comando Local:** `npm start` (inicia el servidor en `http://localhost:3000`).
+### 6.4 Variables de Entorno en Vercel
+Configurar en Vercel (Project Settings -> Environment Variables):
+- `OPENAI_API_KEY`: API Key de OpenAI para el asistente conversacional.
+- `SUPABASE_URL`: `https://tyywkunwrdgtxslrqxox.supabase.co`
+- `SUPABASE_ANON_KEY`: Key pública anónima de Supabase.
+- `SUPABASE_SERVICE_ROLE_KEY`: Service role key de Supabase (uso exclusivo en serverless `/api/*`).
 
 ---
 
 ## 7. Guía de Mantenimiento
 
-### Reasignación o Actualización de Stock
-1. Modificar el archivo `data/stock.json` para agregar vehículos o cambiar el asesor asignado (`"asesor": "hernan"` o `"asesor": "sebastian"`).
-2. Colocar las fotos correspondientes en la carpeta `assets/` con el nombre referenciado en el campo `foto_recorte` del JSON.
-3. Hacer commit y push a la rama `main` de GitHub; Vercel actualizará el sitio automáticamente en segundos.
+### Actualización de Stock en Supabase
+1. Ingresar a la consola de Supabase -> Table Editor -> `grit_vehiculos`.
+2. Para pausar un vehículo vendido, cambiar `activo` a `false`.
+3. Para modificar precio o cuota, actualizar directamente la fila. El cambio impacta inmediatamente en la app sin necesidad de un nuevo deploy en Vercel.
+4. Para subir fotos nuevas: Supabase Storage -> bucket `vehiculos` -> carpeta `grit/`.
 
 ### Ajuste de Parámetros Financieros o Números de Contacto
-- Editar `data/config.json` para modificar el tipo de cambio, las tasas de interés bancarias, o los teléfonos de Hernán y Sebastián.
+- Modificar en la tabla `grit_config` o editar `data/config.json` para modificar el tipo de cambio o teléfonos.
 
 ---
 
 ## 8. Próximos Pasos (Fase Beta)
-1. Pruebas con usuarios beta y recopilación de métricas de uso y conversión.
-2. Monitoreo del balance de leads recibidos en los WhatsApps de Hernán y Sebastián.
-3. Incorporación de fotografías para nuevas unidades que ingresen al inventario físico.
+1. Monitoreo de leads en la tabla `grit_leads` en tiempo real.
+2. Análisis de métricas de conversión y atención por WhatsApp de Sebastián.
+3. Incorporación de panel interno de administración (Backoffice) si se requiere gestión masiva sin entrar a Supabase.
