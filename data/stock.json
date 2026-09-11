@@ -17,7 +17,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-FIAT-STRADA-2019-03.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-FIAT-STRADA-2019-03.jpg",
     "asesor": "sebastian",
-    "orden": 1
+    "orden": 1,
+    "km": 140000
   },
   {
     "id": "GR-RENAULT-CLIO-1993-04",
@@ -37,7 +38,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-RENAULT-CLIO-1993-04.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-RENAULT-CLIO-1993-04.jpg",
     "asesor": "sebastian",
-    "orden": 2
+    "orden": 2,
+    "km": 1234
   },
   {
     "id": "GR-CHEVROLET-S10-2016-06",
@@ -57,7 +59,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-CHEVROLET-S10-2016-06.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-CHEVROLET-S10-2016-06.jpg",
     "asesor": "sebastian",
-    "orden": 3
+    "orden": 3,
+    "km": 179000
   },
   {
     "id": "GR-NISSAN-FRONTIER-2016-09",
@@ -77,7 +80,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-FRONTIER-2016-09.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-FRONTIER-2016-09.jpg",
     "asesor": "sebastian",
-    "orden": 4
+    "orden": 4,
+    "km": 187000
   },
   {
     "id": "GR-FORD-RANGER-2011-11",
@@ -97,7 +101,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-FORD-RANGER-2011-11.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-FORD-RANGER-2011-11.jpg",
     "asesor": "sebastian",
-    "orden": 5
+    "orden": 5,
+    "km": 199000
   },
   {
     "id": "GR-HYUNDAI-TUCSON-2011-14",
@@ -117,7 +122,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-HYUNDAI-TUCSON-2011-14.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-HYUNDAI-TUCSON-2011-14.jpg",
     "asesor": "sebastian",
-    "orden": 6
+    "orden": 6,
+    "km": 160000
   },
   {
     "id": "GR-SUZUKI-ALTO-2020-16",
@@ -137,7 +143,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-SUZUKI-ALTO-2020-16.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-SUZUKI-ALTO-2020-16.jpg",
     "asesor": "sebastian",
-    "orden": 7
+    "orden": 7,
+    "km": 138000
   },
   {
     "id": "GR-FORD-RANGER-2010-21",
@@ -157,7 +164,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-FORD-RANGER-2010-21.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-FORD-RANGER-2010-21.jpg",
     "asesor": "sebastian",
-    "orden": 8
+    "orden": 8,
+    "km": 199000
   },
   {
     "id": "GR-VOLKSWAGEN-GOL-2018-23",
@@ -177,7 +185,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-VOLKSWAGEN-GOL-2018-23.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-VOLKSWAGEN-GOL-2018-23.jpg",
     "asesor": "sebastian",
-    "orden": 9
+    "orden": 9,
+    "km": 110000
   },
   {
     "id": "GR-VOLKSWAGEN-AMAROK-2018-24",
@@ -197,7 +206,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-VOLKSWAGEN-AMAROK-2018-24.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-VOLKSWAGEN-AMAROK-2018-24.jpg",
     "asesor": "sebastian",
-    "orden": 10
+    "orden": 10,
+    "km": 240000
   },
   {
     "id": "GR-JEEP-GLADIATOR-2021-25",
@@ -217,7 +227,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-JEEP-GLADIATOR-2021-25.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-JEEP-GLADIATOR-2021-25.jpg",
     "asesor": "sebastian",
-    "orden": 11
+    "orden": 11,
+    "km": 39000
   },
   {
     "id": "GR-VOLKSWAGEN-GOL-2010-26",
@@ -237,7 +248,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-VOLKSWAGEN-GOL-2010-26.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-VOLKSWAGEN-GOL-2010-26.jpg",
     "asesor": "sebastian",
-    "orden": 12
+    "orden": 12,
+    "km": 170000
   },
   {
     "id": "GR-PEUGEOT-208-2015-27",
@@ -257,7 +269,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-PEUGEOT-208-2015-27.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-PEUGEOT-208-2015-27.jpg",
     "asesor": "sebastian",
-    "orden": 13
+    "orden": 13,
+    "km": 112000
   },
   {
     "id": "GR-GEELY-EX5-2026-29",
@@ -277,7 +290,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-GEELY-EX5-2026-29.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-GEELY-EX5-2026-29.jpg",
     "asesor": "sebastian",
-    "orden": 14
+    "orden": 14,
+    "km": 15000
   },
   {
     "id": "GR-PEUGEOT-207-2013-30",
@@ -297,7 +311,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-PEUGEOT-207-2013-30.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-PEUGEOT-207-2013-30.jpg",
     "asesor": "sebastian",
-    "orden": 15
+    "orden": 15,
+    "km": 169000
   },
   {
     "id": "GR-KIA-RIO-2009-34",
@@ -317,7 +332,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-KIA-RIO-2009-34.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-KIA-RIO-2009-34.jpg",
     "asesor": "sebastian",
-    "orden": 16
+    "orden": 16,
+    "km": 180000
   },
   {
     "id": "GR-CHEVROLET-MERIVA-2009-41",
@@ -337,7 +353,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-CHEVROLET-MERIVA-2009-41.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-CHEVROLET-MERIVA-2009-41.jpg",
     "asesor": "sebastian",
-    "orden": 17
+    "orden": 17,
+    "km": 167000
   },
   {
     "id": "GR-DONGFENG-VIGO-2026-51",
@@ -357,7 +374,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-DONGFENG-VIGO-2026-51.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-DONGFENG-VIGO-2026-51.jpg",
     "asesor": "sebastian",
-    "orden": 18
+    "orden": 18,
+    "km": 0
   },
   {
     "id": "GR-VOLKSWAGEN-GOL-2013-53",
@@ -377,7 +395,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-VOLKSWAGEN-GOL-2013-53.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-VOLKSWAGEN-GOL-2013-53.jpg",
     "asesor": "sebastian",
-    "orden": 19
+    "orden": 19,
+    "km": 212000
   },
   {
     "id": "GR-NISSAN-FRONTIER-2022-57",
@@ -397,7 +416,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-FRONTIER-2022-57.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-FRONTIER-2022-57.jpg",
     "asesor": "sebastian",
-    "orden": 20
+    "orden": 20,
+    "km": 100000
   },
   {
     "id": "GR-NISSAN-FRONTIER-2022-58",
@@ -417,7 +437,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-FRONTIER-2022-58.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-FRONTIER-2022-58.jpg",
     "asesor": "sebastian",
-    "orden": 21
+    "orden": 21,
+    "km": 100000
   },
   {
     "id": "GR-NISSAN-FRONTIER-2021-59",
@@ -437,7 +458,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-FRONTIER-2021-59.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-FRONTIER-2021-59.jpg",
     "asesor": "sebastian",
-    "orden": 22
+    "orden": 22,
+    "km": 119000
   },
   {
     "id": "GR-BMW-X1-2014-64",
@@ -457,7 +479,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-BMW-X1-2014-64.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-BMW-X1-2014-64.jpg",
     "asesor": "sebastian",
-    "orden": 23
+    "orden": 23,
+    "km": 145000
   },
   {
     "id": "GR-VOLKSWAGEN-GOL-2014-66",
@@ -477,7 +500,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-VOLKSWAGEN-GOL-2014-66.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-VOLKSWAGEN-GOL-2014-66.jpg",
     "asesor": "sebastian",
-    "orden": 24
+    "orden": 24,
+    "km": 152000
   },
   {
     "id": "GR-FIAT-MOBI-2019-67",
@@ -497,7 +521,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-FIAT-MOBI-2019-67.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-FIAT-MOBI-2019-67.jpg",
     "asesor": "sebastian",
-    "orden": 25
+    "orden": 25,
+    "km": 70000
   },
   {
     "id": "GR-BYD-YUAN_PRO-2026-71",
@@ -517,7 +542,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-BYD-YUAN_PRO-2026-71.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-BYD-YUAN_PRO-2026-71.jpg",
     "asesor": "sebastian",
-    "orden": 26
+    "orden": 26,
+    "km": 4000
   },
   {
     "id": "GR-MERCEDES_BENZ-GLA200-2018-73",
@@ -537,7 +563,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-MERCEDES_BENZ-GLA200-2018-73.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-MERCEDES_BENZ-GLA200-2018-73.jpg",
     "asesor": "sebastian",
-    "orden": 27
+    "orden": 27,
+    "km": 108000
   },
   {
     "id": "GR-BYD-E2-2023-74",
@@ -557,7 +584,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-BYD-E2-2023-74.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-BYD-E2-2023-74.jpg",
     "asesor": "sebastian",
-    "orden": 28
+    "orden": 28,
+    "km": 220000
   },
   {
     "id": "GR-RENAULT-KWID-2023-75",
@@ -577,7 +605,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-RENAULT-KWID-2023-75.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-RENAULT-KWID-2023-75.jpg",
     "asesor": "sebastian",
-    "orden": 29
+    "orden": 29,
+    "km": 79000
   },
   {
     "id": "GR-SUZUKI-SWIFT-2022-76",
@@ -597,7 +626,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-SUZUKI-SWIFT-2022-76.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-SUZUKI-SWIFT-2022-76.jpg",
     "asesor": "sebastian",
-    "orden": 30
+    "orden": 30,
+    "km": 100000
   },
   {
     "id": "GR-HYUNDAI-I10-2013-77",
@@ -617,7 +647,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-HYUNDAI-I10-2013-77.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-HYUNDAI-I10-2013-77.jpg",
     "asesor": "sebastian",
-    "orden": 31
+    "orden": 31,
+    "km": 140000
   },
   {
     "id": "GR-NISSAN-FRONTIER-2024-78",
@@ -637,7 +668,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-FRONTIER-2024-78.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-FRONTIER-2024-78.jpg",
     "asesor": "sebastian",
-    "orden": 32
+    "orden": 32,
+    "km": 100000
   },
   {
     "id": "GR-HONDA-CIVIC-2017-83",
@@ -657,7 +689,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-HONDA-CIVIC-2017-83.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-HONDA-CIVIC-2017-83.jpg",
     "asesor": "sebastian",
-    "orden": 33
+    "orden": 33,
+    "km": 107000
   },
   {
     "id": "GR-CITRO_N-C3-2015-86",
@@ -677,7 +710,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-CITRO_N-C3-2015-86.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-CITRO_N-C3-2015-86.jpg",
     "asesor": "sebastian",
-    "orden": 34
+    "orden": 34,
+    "km": 158000
   },
   {
     "id": "GR-NISSAN-FRONTIER-2021-88",
@@ -697,7 +731,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-FRONTIER-2021-88.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-FRONTIER-2021-88.jpg",
     "asesor": "sebastian",
-    "orden": 35
+    "orden": 35,
+    "km": 119000
   },
   {
     "id": "GR-CHEVROLET-ONIX-2014-90",
@@ -717,7 +752,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-CHEVROLET-ONIX-2014-90.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-CHEVROLET-ONIX-2014-90.jpg",
     "asesor": "sebastian",
-    "orden": 36
+    "orden": 36,
+    "km": 145000
   },
   {
     "id": "GR-NISSAN-KICKS-2018-94",
@@ -737,7 +773,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-KICKS-2018-94.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-KICKS-2018-94.jpg",
     "asesor": "sebastian",
-    "orden": 37
+    "orden": 37,
+    "km": 120000
   },
   {
     "id": "GR-SUZUKI-GRAND_VITARA-2008-96",
@@ -757,7 +794,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-SUZUKI-GRAND_VITARA-2008-96.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-SUZUKI-GRAND_VITARA-2008-96.jpg",
     "asesor": "sebastian",
-    "orden": 38
+    "orden": 38,
+    "km": 165000
   },
   {
     "id": "GR-VOLKSWAGEN-FOX-2006-97",
@@ -777,7 +815,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-VOLKSWAGEN-FOX-2006-97.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-VOLKSWAGEN-FOX-2006-97.jpg",
     "asesor": "sebastian",
-    "orden": 39
+    "orden": 39,
+    "km": 138000
   },
   {
     "id": "GR-VOLKSWAGEN-BORA-2011-102",
@@ -797,7 +836,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-VOLKSWAGEN-BORA-2011-102.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-VOLKSWAGEN-BORA-2011-102.jpg",
     "asesor": "sebastian",
-    "orden": 40
+    "orden": 40,
+    "km": 188000
   },
   {
     "id": "GR-NISSAN-VERSA-2013-103",
@@ -817,7 +857,8 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-VERSA-2013-103.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-VERSA-2013-103.jpg",
     "asesor": "sebastian",
-    "orden": 41
+    "orden": 41,
+    "km": 148000
   },
   {
     "id": "GR-HYUNDAI-GRAND_I10-2014-104",
@@ -837,6 +878,7 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-HYUNDAI-GRAND_I10-2014-104.jpg",
     "foto_original": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-HYUNDAI-GRAND_I10-2014-104.jpg",
     "asesor": "sebastian",
-    "orden": 42
+    "orden": 42,
+    "km": 140000
   }
 ]
