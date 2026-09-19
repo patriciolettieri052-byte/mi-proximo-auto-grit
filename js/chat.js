@@ -172,6 +172,9 @@ function finalizarChat() {
   if (rEnt) rEnt.value = userSession.entrega;
   if (rCuo) rCuo.value = userSession.cuota;
 
+  // Persistir perfil financiero completo en base de datos
+  sincronizarLeadBackend();
+
   const res = buscarResultados(STOCK, userSession);
   const msgCierre = res.length
     ? `¡Excelente! Seleccionamos <b>${res.length} vehículo${res.length > 1 ? 's' : ''}</b> que cumplen con tus condiciones financieras.`

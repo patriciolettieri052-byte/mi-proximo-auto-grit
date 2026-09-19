@@ -223,6 +223,13 @@ function pedirAutoCard(vehiculoId) {
     const fin = evaluarVehiculo(auto, userSession);
     Analytics.waClick(auto.id, fin ? fin.plan : userSession.plan, userSession.ref);
 
+    sincronizarLeadBackend({
+      auto_consultado: userSession.auto_consultado,
+      plan: fin ? fin.plan : userSession.plan,
+      entrega_usd: fin ? fin.entrega : userSession.entrega,
+      cuota_uyu: fin ? fin.cuota : userSession.cuota
+    });
+
     const linkObj = armarLinkWA(auto, fin, userSession, auto.asesor);
     abrirWhatsAppLink(linkObj.url);
   }

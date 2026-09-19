@@ -88,16 +88,8 @@ async function comenzarOnboarding() {
   // 1. Guardar en memoria de sesión y localStorage
   guardarLeadLocal(nombre, celular);
 
-  // 2. Guardar en backend (data/leads.json) en segundo plano
-  fetch('/api/leads', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      nombre: nombre,
-      celular: celular,
-      ref: userSession.ref
-    })
-  }).catch(err => console.warn('Error enviando lead a backend:', err));
+  // 2. Guardar en backend (Supabase / leads.json) en segundo plano
+  sincronizarLeadBackend();
 
   // 3. Pasar al chat
   ir('chat');
@@ -143,6 +135,7 @@ function abrirWhatsAppComercial(asesorId) {
     userSession.plan,
     userSession.ref
   );
+  sincronizarLeadBackend();
   const linkObj = armarLinkWA(userSession.auto_obj, null, userSession, asesorId || 'sebastian');
   abrirWhatsAppLink(linkObj.url);
 }

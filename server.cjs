@@ -195,7 +195,7 @@ const server = http.createServer(async (req, res) => {
     req.on('end', () => {
       try {
         const body = JSON.parse(bodyStr || '{}');
-        const { nombre, celular, ref } = body;
+        const { nombre, celular, ref, auto_consultado, plan, entrega_usd, cuota_uyu, clearing, permuta, permuta_detalle } = body;
 
         if (!nombre || !celular) {
           res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -212,16 +212,45 @@ const server = http.createServer(async (req, res) => {
         }
 
         const now = new Date();
-        const lead = {
-          id: 'LEAD-' + Date.now().toString(36).toUpperCase(),
-          fecha: now.toISOString(),
-          created_at: now.toLocaleString('es-UY', { timeZone: 'America/Montevideo' }),
-          nombre: nombre.trim(),
-          celular: celular.trim(),
-          session_ref: ref || 'MPA-000'
-        };
+        const leadRef = ref || 'MPA-000';
+        const idx = leads.findIndex(l => (l.session_ref === leadRef || l.ref === leadRef));
 
-        leads.push(lead);
+        let lead;
+        if (idx >= 0) {
+          lead = {
+            ...leads[idx],
+            nombre: nombre ? nombre.trim() : leads[idx].nombre,
+            celular: celular ? celular.trim() : leads[idx].celular,
+            auto_consultado: auto_consultado !== undefined ? auto_consultado : leads[idx].auto_consultado,
+            plan: plan !== undefined ? plan : leads[idx].plan,
+            entrega_usd: typeof entrega_usd === 'number' ? entrega_usd : leads[idx].entrega_usd,
+            cuota_uyu: typeof cuota_uyu === 'number' ? cuota_uyu : leads[idx].cuota_uyu,
+            clearing: clearing !== undefined ? clearing : leads[idx].clearing,
+            permuta: typeof permuta === 'boolean' ? permuta : leads[idx].permuta,
+            permuta_detalle: permuta_detalle !== undefined ? permuta_detalle : leads[idx].permuta_detalle,
+            updated_at: now.toLocaleString('es-UY', { timeZone: 'America/Montevideo' })
+          };
+          leads[idx] = lead;
+        } else {
+          lead = {
+            id: 'LEAD-' + Date.now().toString(36).toUpperCase(),
+            fecha: now.toISOString(),
+            created_at: now.toLocaleString('es-UY', { timeZone: 'America/Montevideo' }),
+            nombre: nombre.trim(),
+            celular: celular.trim(),
+            ref: leadRef,
+            session_ref: leadRef,
+            auto_consultado: auto_consultado || null,
+            plan: plan || null,
+            entrega_usd: typeof entrega_usd === 'number' ? entrega_usd : null,
+            cuota_uyu: typeof cuota_uyu === 'number' ? cuota_uyu : null,
+            clearing: clearing || null,
+            permuta: Boolean(permuta),
+            permuta_detalle: permuta_detalle || null
+          };
+          leads.push(lead);
+        }
+
         fs.writeFileSync(leadsFile, JSON.stringify(leads, null, 2), 'utf8');
 
         res.writeHead(200, {

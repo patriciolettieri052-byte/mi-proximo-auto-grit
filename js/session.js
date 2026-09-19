@@ -91,3 +91,34 @@ function guardarSesionLocal() {
     console.warn('No se pudo guardar la sesión en sessionStorage:', e);
   }
 }
+
+async function sincronizarLeadBackend(datosExtra = {}) {
+  if (!userSession.nombre || !userSession.celular) return;
+
+  const payload = {
+    nombre: userSession.nombre,
+    celular: userSession.celular,
+    ref: userSession.ref,
+    clearing: userSession.clearing || null,
+    plan: userSession.plan || null,
+    entrega_usd: typeof userSession.entrega === 'number' ? userSession.entrega : null,
+    cuota_uyu: typeof userSession.cuota === 'number' ? userSession.cuota : null,
+    auto_consultado: userSession.auto_consultado || null,
+    permuta: Boolean(userSession.permuta),
+    permuta_detalle: userSession.permuta_detalle || null,
+    ...datosExtra
+  };
+
+  try {
+    await fetch('/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      keepalive: true,
+      body: JSON.stringify(payload)
+    });
+  } catch (err) {
+    console.warn('Error sincronizando lead con backend:', err);
+  }
+}
+
+window.sincronizarLeadBackend = sincronizarLeadBackend;
