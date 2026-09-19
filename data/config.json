@@ -26,7 +26,7 @@
   },
   "ia": {
     "endpoint": "/api/asistente",
-    "timeout_ms": 4000,
+    "timeout_ms": 7000,
     "max_llamadas_sesion": 15
   },
   "analytics": {

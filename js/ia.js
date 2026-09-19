@@ -7,7 +7,7 @@ let needHumanMostrado = false;
 
 async function consultarAsistente(expecting, knownState, userMessage) {
   const maxLlamadas = (CFG && CFG.ia && CFG.ia.max_llamadas_sesion) ? CFG.ia.max_llamadas_sesion : 15;
-  const timeoutMs = (CFG && CFG.ia && CFG.ia.timeout_ms) ? CFG.ia.timeout_ms : 4000;
+  const timeoutMs = (CFG && CFG.ia && CFG.ia.timeout_ms) ? CFG.ia.timeout_ms : 7000;
   const tc = (CFG && CFG.financiacion && CFG.financiacion.tipo_cambio_usd_uyu) ? CFG.financiacion.tipo_cambio_usd_uyu : 40;
 
   if (llamadasIaEnSesion >= maxLlamadas) {

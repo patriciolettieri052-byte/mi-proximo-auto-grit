@@ -45,7 +45,11 @@ function armarLinkWA(vehiculo, fin, userSession, asesorParam) {
     text = `${saludoIntro}Me interesa el ${autoNombre}. Deseo solicitar la pre-aprobación del Crédito de la Casa con entrega de USD ${Math.round(fin.entrega).toLocaleString('es-UY')} y ${userSession.meses || 24} cuotas de USD ${Math.round(fin.cuotaUsd).toLocaleString('es-UY')}. Ref: ${ref}`;
   } else if (fin && fin.plan === 'banco') {
     const plazoBanco = (CFG && CFG.financiacion && CFG.financiacion.plazo_banco) ? CFG.financiacion.plazo_banco : 60;
-    text = `${saludoIntro}Me interesa el ${autoNombre}. Deseo solicitar pre-aprobación de crédito bancario 100% financiado en ${plazoBanco} cuotas en pesos de aprox. $ ${Math.round(fin.cuotaUyu).toLocaleString('es-UY')}. Ref: ${ref}`;
+    if (userSession && userSession.entrega > 0) {
+      text = `${saludoIntro}Me interesa el ${autoNombre}. Cuento con ${entregaFormatted} de entrega inicial y busco financiar por banco en cuotas de aprox. $ ${Math.round(fin.cuotaUyu).toLocaleString('es-UY')}. Ref: ${ref}`;
+    } else {
+      text = `${saludoIntro}Me interesa el ${autoNombre}. Deseo solicitar pre-aprobación de crédito bancario 100% financiado en ${plazoBanco} cuotas en pesos de aprox. $ ${Math.round(fin.cuotaUyu).toLocaleString('es-UY')}. Ref: ${ref}`;
+    }
   } else if (vehiculo) {
     text = `${saludoIntro}Me interesa el ${autoNombre}. Cuento con ${entregaFormatted} de entrega y aprox. ${cuotaFormatted}/mes de cuota. ¿Podemos coordinar? Ref: ${ref}`;
   } else {

@@ -48,9 +48,20 @@ QUÉ EXTRAER
 El sistema te indica en "expecting" qué dato se encuentra aguardando:
 
   clearing  -> true (posee antecedentes o atrasos) | false (sin antecedentes) | null (no sabe)
-  entrega   -> monto numérico en USD. Si lo indica en pesos uruguayos, convertilo dividiendo por el tipo de cambio proporcionado en "tc". Si indica "sin entrega"/"cero" -> 0. Si ofrece vehículo propio como forma de pago -> asigná permuta: true.
+
+  entrega   -> monto numérico en DÓLARES (USD).
+               REGLAS PARA ENTREGA:
+               - En Uruguay las entregas de vehículos se presupuestan habitualmente en DÓLARES (USD).
+               - Si el usuario escribe cifras como "6000", "6.000", "USD 6.000", "6000 usd", "6000 dólares", "tengo 6 mil", el valor es directamente en DÓLARES: 6000. NO lo multipliques ni lo dividas por tc.
+               - Solo si el usuario indica explícitamente "pesos", "uyu" o escribe una cifra en moneda nacional (ej: "240.000 pesos"), convertilo a USD dividiendo por "tc".
+               - Si indica "sin entrega", "cero", "nada" -> 0.
+               - Si ofrece vehículo propio como forma de pago -> asigná permuta: true.
+
   permuta   -> true si menciona entregar un vehículo usado en permuta. Si especifica marca, modelo o año, registralos en permuta_detalle.
-  cuota     -> monto mensual en PESOS uruguayos (UYU). Si lo indica en dólares, multiplicalo por "tc".
+
+  cuota     -> monto mensual en PESOS uruguayos (UYU).
+               - Cifras como "15000", "15.000", "$ 15.000" son PESOS (UYU): 15000.
+               - Si lo indica explícitamente en dólares (ej: "400 dólares" o "400 usd"), multiplicalo por "tc".
 
 Si el mensaje no contiene el dato esperado, devolvé field: null. No inventes datos.
 Si el valor es aproximado o ambiguo, asigná confidence en "low".
@@ -131,7 +142,7 @@ const server = http.createServer(async (req, res) => {
               { role: 'system', content: SYSTEM_PROMPT },
               { role: 'user', content: userPrompt }
             ],
-            temperature: 0.6,
+            temperature: 0.1,
             max_tokens: 120,
             response_format: { type: 'json_object' }
           })

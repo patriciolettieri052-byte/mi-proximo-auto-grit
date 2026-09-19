@@ -196,7 +196,7 @@ function renderCard(item, index) {
           </div>
           <div class="card-specs">${a.anio} · ${a.km.toLocaleString('es-UY')} km · <b>${fmtD(a.precio_usd)}</b></div>
           <div class="fin-box">
-            ${esCasa ? `<div class="fin-row"><span>Entrega inicial</span><b>${fmtD(f.entrega)}</b></div>` : `<div class="fin-row"><span>Entrega inicial</span><b>Sin entrega</b></div>`}
+            ${esCasa ? `<div class="fin-row"><span>Entrega inicial</span><b>${fmtD(f.entrega)}</b></div>` : `<div class="fin-row"><span>Entrega inicial</span><b>${userSession.entrega > 0 ? `${fmtD(userSession.entrega)} (o 100% financiado)` : 'Sin entrega (100% financiado)'}</b></div>`}
             <div class="fin-row cuota-row">
               <span class="label">Cuota mensual</span>
               <span class="monto">${cuotaTxt}</span>
@@ -226,8 +226,8 @@ function pedirAutoCard(vehiculoId) {
     sincronizarLeadBackend({
       auto_consultado: userSession.auto_consultado,
       plan: fin ? fin.plan : userSession.plan,
-      entrega_usd: fin ? fin.entrega : userSession.entrega,
-      cuota_uyu: fin ? fin.cuota : userSession.cuota
+      entrega_usd: userSession.entrega,
+      cuota_uyu: fin ? fin.cuotaUyu : userSession.cuota
     });
 
     const linkObj = armarLinkWA(auto, fin, userSession, auto.asesor);
