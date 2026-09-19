@@ -175,10 +175,10 @@ function renderCard(item, index) {
 
   registrarAutoVisto(a.id);
 
-  const cuotaTxt = esCasa ? fmtD(f.cuotaUsd) : fmtU(f.cuotaUyu);
+  const cuotaTxt = fmtU(f.cuotaUyu);
   const cuotaSub = esCasa
-    ? `≈ ${fmtU(f.cuotaUyu)} · ${userSession.meses || 24} cuotas`
-    : `${CFG.financiacion.plazo_banco} cuotas en pesos`;
+    ? `${userSession.meses || 24} cuotas · (≈ ${fmtD(f.cuotaUsd)})`
+    : `${CFG.financiacion.plazo_banco} cuotas fijas en pesos`;
 
   const planNombre = esCasa ? 'Plan Casa' : 'Plan Banco';
 
