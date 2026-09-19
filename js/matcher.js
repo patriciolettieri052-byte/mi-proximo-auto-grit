@@ -34,12 +34,15 @@ function evaluarVehiculo(vehiculo, userState) {
     }
   }
 
-  // 1. Si el usuario ingresó entrega > 0 y califica para Plan Casa dentro de su cuota, se prioriza Plan Casa
-  if (userState.entrega > 0 && opcionCasa && opcionCasa.cuotaUyu <= userState.cuota) {
-    return opcionCasa;
+  // 1. Si el usuario ingresó entrega > 0 y califica para Plan Casa (en el plazo base de 24 meses o en el plazo actual)
+  if (userState.entrega > 0 && opcionCasa) {
+    const cuotaBase24Uyu = usd2uyu(calcPlanCasa(vehiculo.precio_usd, userState.entrega, 24));
+    if (cuotaBase24Uyu <= userState.cuota || opcionCasa.cuotaUyu <= userState.cuota) {
+      return opcionCasa;
+    }
   }
 
-  // 2. Si no tiene entrega (o no llega a la entrega mínima de la casa) pero califica por Banco dentro de su cuota
+  // 2. Si no califica a Plan Casa pero califica por Banco dentro de su cuota
   if (opcionBanco && opcionBanco.cuotaUyu <= userState.cuota) {
     return opcionBanco;
   }

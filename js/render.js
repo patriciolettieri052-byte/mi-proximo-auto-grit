@@ -69,10 +69,6 @@ function pintarResultados() {
     divAjuste.style.pointerEvents = 'auto';
   }
 
-  if (divPlazos) {
-    divPlazos.classList.toggle('oculto', userSession.entrega === 0);
-  }
-
   const lblEnt = document.getElementById('lblEnt');
   const lblCuo = document.getElementById('lblCuo');
   if (lblEnt) lblEnt.textContent = fmtD(userSession.entrega);
@@ -80,6 +76,11 @@ function pintarResultados() {
 
   const r = buscarResultados(STOCK, userSession);
   userSession.resultados_count = r.length;
+
+  const hayCasa = r.some(item => item.fin && item.fin.plan === 'casa');
+  if (divPlazos) {
+    divPlazos.classList.toggle('oculto', !hayCasa || userSession.plan === 'banco' || userSession.entrega === 0);
+  }
 
   const conteo = document.getElementById('conteo');
   if (conteo) {
@@ -159,6 +160,11 @@ function renderEmptyState(container) {
   if (mTit) mTit.textContent = "Opción más cercana";
   if (mSub) mSub.textContent = "Te mostramos la opción más accesible de nuestro stock.";
 
+  const divPlazos = document.getElementById('plazos');
+  if (divPlazos) {
+    divPlazos.classList.toggle('oculto', !esCasa || userSession.plan === 'banco' || userSession.entrega === 0);
+  }
+
   container.innerHTML = renderCard({ vehiculo: cand, fin: finObj }, 0);
 }
 
@@ -171,7 +177,7 @@ function renderCard(item, index) {
 
   const cuotaTxt = esCasa ? fmtD(f.cuotaUsd) : fmtU(f.cuotaUyu);
   const cuotaSub = esCasa
-    ? `≈ ${fmtU(f.cuotaUyu)} · ${userSession.meses} cuotas`
+    ? `≈ ${fmtU(f.cuotaUyu)} · ${userSession.meses || 24} cuotas`
     : `${CFG.financiacion.plazo_banco} cuotas en pesos`;
 
   const planNombre = esCasa ? 'Plan Casa' : 'Plan Banco';
