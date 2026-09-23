@@ -5,7 +5,8 @@
 **Versión:** 1.0.0 (Beta Release)  
 **Fecha:** Septiembre 2026  
 **Repositorio GitHub:** [patriciolettieri052-byte/mi-proximo-auto-grit](https://github.com/patriciolettieri052-byte/mi-proximo-auto-grit.git)  
-**Despliegue:** Vercel (Producción Zero-Config + Serverless)
+**Despliegue:** Vercel (Producción Zero-Config + Serverless)  
+**Manual Técnico para IA:** Ver [CONTEXTO_AGENTE_IA.md](./CONTEXTO_AGENTE_IA.md) para especificación exhaustiva y reglas de desarrollo.
 
 ---
 
@@ -75,9 +76,9 @@ El sistema aplica la matriz financiera oficial de Grit Automotores:
 
 | Perfil Financiero | Vía Crediticia | Entrega Requerida | Plazos Disponibles | Requisitos Clave |
 | :--- | :--- | :--- | :--- | :--- |
-| **Sin Clearing** | Bancaria / Tradicional | Desde 0% a 20% | Hasta 60 cuotas | Justificación de ingresos |
-| **Con Clearing** | Crédito de la Casa (Grit) | Mínimo 50% | Hasta 24/36 cuotas | 2 Garantes solidarios |
-| **Con Permuta** | Mixta | Tomado como parte de entrega | Según saldo | Tasación previa en local |
+| **Sin Clearing** | Bancaria / Tradicional | Desde 0% (100% financiado) o cualquier entrega | 12, 24, 36 o 60 cuotas (dinámico) | Justificación de ingresos |
+| **Con Clearing** | Crédito de la Casa (Grit) | Mínimo 50% (+ títulos) o permuta | Fijo a 60 cuotas (máxima accesibilidad) | 2 Garantes solidarios |
+| **Con Permuta** | Mixta | Vehículo usado tomado como entrega | Según plan elegido | Tasación comercial previa |
 
 - **Tipo de Cambio:** Configurable dinámicamente (`UYU / USD`).
 - **Moneda de Cuotas:** Presentación dual en Pesos Uruguayos ($UYU) y Dólares ($USD).
