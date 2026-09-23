@@ -4,7 +4,7 @@
 
 let pasoChat = 0;
 
-function decieMensaje(txt, quien, cb) {
+function decieMensaje(txt, quien, cb, delayMs = 600) {
   const hilo = document.getElementById('hilo');
   if (!hilo) return;
 
@@ -23,7 +23,7 @@ function decieMensaje(txt, quien, cb) {
       hilo.appendChild(m);
       hilo.scrollTop = hilo.scrollHeight;
       if (cb) cb();
-    }, 600);
+    }, delayMs);
   } else {
     const m = document.createElement('div');
     m.className = 'msg yo';
@@ -60,7 +60,7 @@ function iniciarChat() {
   decieMensaje(`${saludo}En 3 simples pasos encontramos tu próximo auto. ¿Contás con antecedentes en Clearing o atrasos crediticios?`, 'ia', () => renderOpcionesChips([
     { t: "Sí, estoy en Clearing", f: () => seleccionarClearing('si') },
     { t: "No, sin atrasos", f: () => seleccionarClearing('no') }
-  ]));
+  ]), 150);
 }
 
 function preguntaPaso(n) {
