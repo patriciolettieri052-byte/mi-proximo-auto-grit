@@ -30,6 +30,7 @@ function moverEnt() {
   if (rEnt) {
     userSession.entrega = +rEnt.value;
     userSession.entrega_origen = 'slider';
+    userSession.entregaTxt = fmtD(userSession.entrega);
     pintarResultados();
   }
 }
