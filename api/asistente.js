@@ -28,6 +28,7 @@ QUÉ EXTRAER
 El sistema te indica en "expecting" qué dato se encuentra aguardando:
 
   clearing  -> true (posee antecedentes o atrasos) | false (sin antecedentes) | null (no sabe)
+               Si manifiesta estar en Clearing, tu acuse debe ser empático y tranquilizador: en Grit siempre le buscamos la vuelta (no es un impedimento para acceder a un auto).
 
   entrega   -> monto numérico en DÓLARES (USD).
                REGLAS PARA ENTREGA:

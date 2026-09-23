@@ -57,7 +57,7 @@ function iniciarChat() {
   Analytics.q1Answered(null);
   const nombreTxt = userSession.nombre ? userSession.nombre.split(' ')[0] : '';
   const saludo = nombreTxt ? `¡Hola, ${nombreTxt}! ` : "¡Hola! ";
-  decieMensaje(`${saludo}En 3 simples pasos encontramos tu próximo auto. ¿Contás con antecedentes en Clearing o atrasos crediticios?`, 'ia', () => renderOpcionesChips([
+  decieMensaje(`${saludo}En 3 simples pasos encontramos tu próximo auto.<br><br>¿Contás con antecedentes en Clearing o atrasos crediticios? Despreocupate que no es bloqueante: <b>en Grit siempre le buscamos la vuelta</b> 🙌.`, 'ia', () => renderOpcionesChips([
     { t: "Sí, estoy en Clearing", f: () => seleccionarClearing('si') },
     { t: "No, sin atrasos", f: () => seleccionarClearing('no') }
   ]), 150);
@@ -89,7 +89,7 @@ function seleccionarClearing(val) {
       : STOCK[0];
     const pisoUsd = minVeh ? entregaMinima(minVeh.precio_usd) : 4600;
 
-    decieMensaje(`Comprendido. En Grit Automotores contás con nuestro <b>Crédito de la Casa</b> (50% de entrega y dos garantes) con entrega inicial desde <b>${fmtD(pisoUsd)}</b>.`, 'ia', () => {
+    decieMensaje(`¡Comprendido! En Grit siempre le buscamos la vuelta: contás con nuestro <b>Crédito de la Casa</b> propio (50% de entrega o tu vehículo usado y dos garantes) con entrega inicial desde <b>${fmtD(pisoUsd)}</b>.`, 'ia', () => {
       setTimeout(preguntaEntrega, 450);
     });
   }
