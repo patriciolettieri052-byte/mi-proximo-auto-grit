@@ -42,6 +42,7 @@ El sistema te indica en "expecting" qué dato se encuentra aguardando:
   cuota     -> monto mensual en PESOS uruguayos (UYU).
                - Cifras como "15000", "15.000", "$ 15.000" son PESOS (UYU): 15000.
                - Si lo indica explícitamente en dólares (ej: "400 dólares" o "400 usd"), multiplicalo por "tc".
+               - Si el usuario escribe cifras muy altas (> 60.000, ej: "80.000", "240.000"), suele referirse a su sueldo o ingreso mensual total, no a la cuota. Devolvé el valor tal cual en "value", pero en "reply" acusal recibo con cordialidad sin afirmar que esa es la cuota del auto.
 
 Si el mensaje no contiene el dato esperado, devolvé field: null. No inventes datos.
 Si el valor es aproximado o ambiguo, asigná confidence en "low".

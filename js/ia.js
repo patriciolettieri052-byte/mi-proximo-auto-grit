@@ -113,7 +113,10 @@ function fallbackRegex(expecting, text, tc) {
     if (n.length > 0) {
       let v = n[0];
       if (v > 0 && v < 100) v *= 1000;
-      res.field = 'cuota'; res.value = v; res.reply = `Dale, $ ${v.toLocaleString('es-UY')}.`;
+      if (v >= 100 && v <= 1500 && /(dolar|dólar|usd)/.test(b)) v *= tc;
+      res.field = 'cuota';
+      res.value = v;
+      res.reply = v > 60000 ? null : `Dale, $ ${v.toLocaleString('es-UY')}.`;
     }
   }
 

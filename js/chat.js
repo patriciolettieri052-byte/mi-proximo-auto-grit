@@ -250,8 +250,19 @@ async function enviarTextoLibre() {
     const replyText = resIa.reply || "Comprendido.";
     decieMensaje(replyText, 'ia', () => seleccionarEntrega(resIa.value, fmtD(resIa.value), "texto"));
   } else if (resIa.field === 'cuota' && pasoChat === 3) {
+    const val = typeof resIa.value === 'number' ? resIa.value : parseInt(resIa.value, 10);
+    if (val > 60000) {
+      decieMensaje(`Anotado tu nivel de ingresos ($ ${val.toLocaleString('es-UY')}). Para simular la cuota mensual del auto, ¿cuál de estos montos se adapta mejor a tu presupuesto?`, 'ia', () => renderOpcionesChips([
+        { t: "$ 10.000", f: () => seleccionarCuota(10000) },
+        { t: "$ 15.000", f: () => seleccionarCuota(15000) },
+        { t: "$ 22.000", f: () => seleccionarCuota(22000) },
+        { t: "$ 30.000", f: () => seleccionarCuota(30000) },
+        { t: "Más de $ 40.000", f: () => seleccionarCuota(45000) }
+      ]));
+      return;
+    }
     const replyText = resIa.reply || "Excelente.";
-    decieMensaje(replyText, 'ia', () => seleccionarCuota(resIa.value));
+    decieMensaje(replyText, 'ia', () => seleccionarCuota(val));
   } else {
     // Si no se extrajo el campo esperado o confidence es low
     const acuseFallido = resIa.reply || "Por favor, indícanos el siguiente dato:";
