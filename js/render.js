@@ -119,8 +119,44 @@ function pintarResultados() {
   }
 
   if (lista) {
-    lista.innerHTML = r.map((item, idx) => renderCard(item, idx)).join('');
+    const cardsHtml = r.map((item, idx) => renderCard(item, idx)).join('');
+    
+    // Si el usuario está en clearing y su entrega es menor a USD 5.770,
+    // insertamos el banner de rescate para que sepa que entregando su usado puede cubrir la diferencia
+    let bannerPermutaHtml = '';
+    if (esClearing && userSession.entrega < 5770) {
+      bannerPermutaHtml = `
+        <div class="banner-permuta-clearing">
+          <div class="banner-permuta-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
+          </div>
+          <div class="banner-permuta-body">
+            <b>¿No llegás al 50% en efectivo? Tomamos tu usado</b>
+            <p>Entregá tus ${fmtD(userSession.entrega)} + tu auto o moto en permuta y alcanzá cualquiera de estos modelos con Crédito de la Casa.</p>
+            <button class="btn-permuta-cta" onclick="consultarPermutaClearing()">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.1c.1.2.1.4 0 .6l-.4.5-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>
+              Coordinar tasación por WhatsApp con Sebastián
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    lista.innerHTML = bannerPermutaHtml + cardsHtml;
   }
+}
+
+function consultarPermutaClearing() {
+  userSession.permuta = true;
+  sincronizarLeadBackend({ permuta: true });
+  const ref = userSession.ref || 'MPA-000';
+  const ent = userSession.entrega > 0 ? fmtD(userSession.entrega) : 'mi presupuesto actual';
+  const esClearing = (userSession.clearing === 'si' || userSession.clearing === true || userSession.clearing === 'nose' || userSession.plan === 'casa');
+  const text = esClearing
+    ? `Hola Sebastián, estuve usando la app pero estoy en Clearing. Dispongo de ${ent} inicial y quisiera evaluar entregar mi vehículo usado en permuta o facilidades para el Crédito de la Casa. ¿Podemos coordinar? Ref: ${ref}`
+    : `Hola Sebastián, estuve usando la app pero busco opciones acordes a mi presupuesto (${ent}). ¿Podemos evaluar opciones de financiación personalizadas? Ref: ${ref}`;
+  const url = `https://wa.me/59897300504?text=${encodeURIComponent(text)}`;
+  abrirWhatsAppLink(url);
 }
 
 function renderEmptyState(container) {
@@ -163,15 +199,39 @@ function renderEmptyState(container) {
 
   const mTit = document.getElementById('mTit');
   const mSub = document.getElementById('mSub');
-  if (mTit) mTit.textContent = "Opción más cercana";
-  if (mSub) mSub.textContent = "Te mostramos la opción más accesible de nuestro stock.";
+  if (mTit) mTit.textContent = "Tenemos alternativas para vos";
+  if (mSub) mSub.textContent = esClearing
+    ? "Con tu entrega actual podés acceder combinando una permuta o evaluando facilidades con el asesor."
+    : "Ajustando levemente la entrega o cuota encontramos opciones en nuestro catálogo.";
 
   const divPlazos = document.getElementById('plazos');
   if (divPlazos) {
     divPlazos.classList.toggle('oculto', esClearing || esCasa);
   }
 
-  container.innerHTML = renderCard({ vehiculo: cand, fin: finObj }, 0);
+  const rescueHtml = `
+    <div class="empty-state-rescue">
+      <div class="empty-state-rescue-head">
+        <span class="rescue-badge">${esClearing ? 'Crédito de la Casa' : 'Asesoramiento Personalizado'}</span>
+        <h3>${esClearing ? 'Tenemos alternativas para tu entrega' : 'Búsqueda personalizada'}</h3>
+        <p>${esClearing 
+          ? `Para Crédito de la Casa se requiere un 50% de entrega inicial. Si hoy contás con <b>${fmtD(userSession.entrega || 0)}</b>, podés cubrir la diferencia entregando tu <b>auto o moto en permuta</b> o consultar facilidades con Sebastián.`
+          : `No encontramos unidades directas con cuota de hasta <b>${fmtU(userSession.cuota)}/mes</b>, pero Sebastián puede buscarte opciones ingresando a stock o evaluar plazos especiales.`
+        }</p>
+      </div>
+      <div class="empty-state-actions">
+        <button class="btn-rescue-wa" onclick="consultarPermutaClearing()">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.1c.1.2.1.4 0 .6l-.4.5-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>
+          Hablar con Sebastián por WhatsApp
+        </button>
+        <button class="btn-rescue-sub" onclick="toggleAjuste()">
+          Probar moviendo la entrega o cuota en el simulador ↓
+        </button>
+      </div>
+    </div>
+  `;
+
+  container.innerHTML = rescueHtml + renderCard({ vehiculo: cand, fin: finObj }, 0);
 }
 
 function renderCard(item, index) {
