@@ -209,50 +209,6 @@ body {
   margin-bottom: 18px;
 }
 
-.onboarding-clearing-note {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  background: var(--accent-soft);
-  border: 1px solid rgba(242, 130, 13, 0.35);
-  border-radius: var(--radius-card);
-  padding: 13px 15px;
-  margin-bottom: 22px;
-}
-
-.clearing-badge-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: var(--bubble-user-text);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-.clearing-badge-text b {
-  display: block;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 3px;
-}
-
-.clearing-badge-text span {
-  font-size: 12px;
-  color: var(--text-muted);
-  line-height: 1.45;
-  display: block;
-}
-
-.clearing-badge-text span b {
-  display: inline;
-  color: var(--accent);
-}
-
 .onboarding-trust-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
