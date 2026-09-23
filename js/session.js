@@ -24,7 +24,7 @@ const userSession = {
   permuta: false,
   permuta_detalle: null,
   cuota: 12000,
-  meses: 24,
+  meses: 60,
   resultados_count: 0,
   autos_vistos: [],
   auto_consultado: null,

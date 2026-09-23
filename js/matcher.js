@@ -9,45 +9,45 @@ function evaluarVehiculo(vehiculo, userState) {
   const permiteCasa = vehiculo.credito_propio && userState.entrega > 0;
   const permiteBanco = !esClearing;
 
+  // Plan Casa: siempre a 60 cuotas fijas (la cuota más baja posible para personas en clearing o crédito propio)
   let opcionCasa = null;
   if (permiteCasa && entregaMinima(vehiculo.precio_usd) <= userState.entrega) {
-    const cuotaUsd = calcPlanCasa(vehiculo.precio_usd, userState.entrega, userState.meses);
+    const cuotaUsd = calcPlanCasa(vehiculo.precio_usd, userState.entrega, 60);
     if (cuotaUsd !== null) {
       opcionCasa = {
         plan: 'casa',
         cuotaUsd: cuotaUsd,
         cuotaUyu: usd2uyu(cuotaUsd),
+        meses: 60,
         entrega: Math.min(userState.entrega, entregaMaxima(vehiculo.precio_usd))
       };
     }
   }
 
+  // Plan Banco: cuota calculada con el plazo seleccionado (12, 24, 36, 60) y entrega (si aplica)
   let opcionBanco = null;
   if (permiteBanco) {
-    const cuotaUyu = calcPlanBanco(vehiculo.precio_usd);
+    const mesesBanco = userState.meses || 60;
+    const cuotaUyu = calcPlanBanco(vehiculo.precio_usd, userState.entrega || 0, mesesBanco);
     if (cuotaUyu !== null) {
       opcionBanco = {
         plan: 'banco',
         cuotaUyu: cuotaUyu,
-        entrega: 0
+        meses: mesesBanco,
+        entrega: userState.entrega || 0
       };
     }
   }
 
-  // 1. Si el usuario ingresó entrega > 0 y califica para Plan Casa (en el plazo base de 24 meses o en el plazo actual)
-  if (userState.entrega > 0 && opcionCasa) {
-    const cuotaBase24Uyu = usd2uyu(calcPlanCasa(vehiculo.precio_usd, userState.entrega, 24));
-    if (cuotaBase24Uyu <= userState.cuota || opcionCasa.cuotaUyu <= userState.cuota) {
-      return opcionCasa;
+  // 1. Si no tiene clearing y califica por Banco (evaluado contra la cuota base a 60m o el plazo actual)
+  if (opcionBanco) {
+    const cuotaBase60 = calcPlanBanco(vehiculo.precio_usd, userState.entrega || 0, 60);
+    if (cuotaBase60 <= userState.cuota || opcionBanco.cuotaUyu <= userState.cuota) {
+      return opcionBanco;
     }
   }
 
-  // 2. Si no califica a Plan Casa pero califica por Banco dentro de su cuota
-  if (opcionBanco && opcionBanco.cuotaUyu <= userState.cuota) {
-    return opcionBanco;
-  }
-
-  // 3. Fallback a Plan Casa si califica
+  // 2. Si el usuario ingresó entrega > 0 y califica para Plan Casa dentro de su cuota
   if (opcionCasa && opcionCasa.cuotaUyu <= userState.cuota) {
     return opcionCasa;
   }

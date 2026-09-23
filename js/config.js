@@ -17,9 +17,10 @@ async function loadConfig() {
       financiacion: {
         tipo_cambio_usd_uyu: 40,
         factor_cuota_banco: 0.024,
-        plazo_banco: 60,
-        plazos_casa: [12, 18, 24],
-        plazo_casa_default: 24,
+        factores_banco: { 12: 0.090, 24: 0.049, 36: 0.035, 60: 0.024 },
+        plazos_banco: [12, 24, 36, 60],
+        plazo_banco_default: 60,
+        plazo_casa: 60,
         interes_flat_mensual: 0.02,
         costo_titulos: 550,
         entrega_minima_pct: 0.50,

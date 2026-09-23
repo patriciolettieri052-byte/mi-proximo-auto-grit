@@ -511,22 +511,24 @@ body {
 
 .plazos {
   display: flex;
-  gap: 7px;
-  padding: 14px 18px 0;
+  gap: 6px;
+  padding: 14px 16px 0;
   flex-shrink: 0;
 }
 
 .plazo {
   flex: 1;
-  padding: 11px 0;
+  padding: 10px 2px;
   border: 1px solid var(--card-border);
   border-radius: var(--radius-btn);
   background: transparent;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
   color: var(--text-muted);
+  white-space: nowrap;
+  text-align: center;
 }
 
 .plazo.on {

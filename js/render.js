@@ -7,7 +7,7 @@ let listo = false;
 
 function setPlazo(m) {
   userSession.meses = m;
-  [12, 18, 24].forEach(x => {
+  [12, 24, 36, 60].forEach(x => {
     const btn = document.getElementById('p' + x);
     if (btn) btn.classList.toggle('on', x === m);
   });
@@ -77,9 +77,10 @@ function pintarResultados() {
   const r = buscarResultados(STOCK, userSession);
   userSession.resultados_count = r.length;
 
-  const hayCasa = r.some(item => item.fin && item.fin.plan === 'casa');
+  const hayBanco = r.some(item => item.fin && item.fin.plan === 'banco');
+  const esClearing = (userSession.clearing === 'si' || userSession.clearing === true || userSession.clearing === 'nose' || userSession.plan === 'casa');
   if (divPlazos) {
-    divPlazos.classList.toggle('oculto', !hayCasa || userSession.plan === 'banco' || userSession.entrega === 0);
+    divPlazos.classList.toggle('oculto', esClearing || !hayBanco);
   }
 
   const conteo = document.getElementById('conteo');
@@ -110,9 +111,10 @@ function pintarResultados() {
   const mSub = document.getElementById('mSub');
   if (mTit) mTit.textContent = `Vehículos disponibles (${r.length})`;
   if (mSub) {
+    const plazoActual = userSession.meses || 60;
     mSub.innerHTML = userSession.entrega > 0
       ? `Con <b>${fmtD(userSession.entrega)}</b> de entrega y cuota mensual de hasta <b>${fmtU(userSession.cuota)}</b>.`
-      : `Crédito bancario (${CFG.financiacion.plazo_banco} cuotas) sin entrega. Hasta <b>${fmtU(userSession.cuota)}/mes</b>.`;
+      : `Crédito bancario (${plazoActual} cuotas) sin entrega. Hasta <b>${fmtU(userSession.cuota)}/mes</b>.`;
   }
 
   if (lista) {
@@ -134,24 +136,27 @@ function renderEmptyState(container) {
 
   // Calcular el plan financiero correspondiente para la unidad candidata
   const esClearing = (userSession.clearing === 'si' || userSession.clearing === true || userSession.clearing === 'nose');
-  const esCasa = (userSession.plan === 'casa' || userSession.entrega > 0 || esClearing) && cand.credito_propio;
+  const esCasa = (userSession.plan === 'casa' || esClearing) && cand.credito_propio;
   
   let finObj = null;
   if (esCasa) {
     const ent = Math.max(entregaMinima(cand.precio_usd), userSession.entrega || 0);
-    const cuotaUsd = calcPlanCasa(cand.precio_usd, ent, userSession.meses || 24);
+    const cuotaUsd = calcPlanCasa(cand.precio_usd, ent, 60);
     finObj = {
       plan: 'casa',
       cuotaUsd: cuotaUsd,
       cuotaUyu: usd2uyu(cuotaUsd),
+      meses: 60,
       entrega: ent
     };
   } else {
-    const cuotaUyu = calcPlanBanco(cand.precio_usd);
+    const mesesBanco = userSession.meses || 60;
+    const cuotaUyu = calcPlanBanco(cand.precio_usd, userSession.entrega || 0, mesesBanco);
     finObj = {
       plan: 'banco',
       cuotaUyu: cuotaUyu,
-      entrega: 0
+      meses: mesesBanco,
+      entrega: userSession.entrega || 0
     };
   }
 
@@ -162,7 +167,7 @@ function renderEmptyState(container) {
 
   const divPlazos = document.getElementById('plazos');
   if (divPlazos) {
-    divPlazos.classList.toggle('oculto', !esCasa || userSession.plan === 'banco' || userSession.entrega === 0);
+    divPlazos.classList.toggle('oculto', esClearing || esCasa);
   }
 
   container.innerHTML = renderCard({ vehiculo: cand, fin: finObj }, 0);
@@ -176,9 +181,10 @@ function renderCard(item, index) {
   registrarAutoVisto(a.id);
 
   const cuotaTxt = fmtU(f.cuotaUyu);
+  const plazoBanco = f.meses || userSession.meses || 60;
   const cuotaSub = esCasa
-    ? `${userSession.meses || 24} cuotas · (≈ ${fmtD(f.cuotaUsd)})`
-    : `${CFG.financiacion.plazo_banco} cuotas fijas en pesos`;
+    ? `60 cuotas · (≈ ${fmtD(f.cuotaUsd)})`
+    : `${plazoBanco} cuotas fijas en pesos`;
 
   const planNombre = esCasa ? 'Plan Casa' : 'Plan Banco';
 
