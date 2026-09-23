@@ -188,13 +188,24 @@
     <!-- Vista 3: ASESOR COMERCIAL -->
     <main class="vista" id="vVend">
       <div class="ficha">
-        <div class="avatar">S</div>
-        <h3>Sebastián</h3>
-        <p>Asesor comercial — Grit Automotores</p>
-        <div class="tel-visible">+598 97 300 504</div>
-        <button class="wa" onclick="abrirWhatsAppComercial('sebastian')">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.1c.1.2.1.4 0 .6l-.4.5-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>
-          Escribirle por WhatsApp
+        <div class="avatar-wrap">
+          <div class="avatar" id="vendAvatar">S</div>
+          <span class="avatar-live-dot" title="En línea"></span>
+        </div>
+        <h3 id="vendNombre">Sebastián</h3>
+        <p id="vendCargo">Asesor comercial — Grit Automotores</p>
+        <div class="vend-status">
+          <span class="live-dot"></span>
+          <span>En línea ahora · Atención presencial y WhatsApp</span>
+        </div>
+        <div class="vend-loc">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Nueva Palmira 2061 / 2064, Montevideo</span>
+        </div>
+        <a href="tel:+59897300504" class="tel-visible" id="vendTel">+598 97 300 504</a>
+        <button class="wa" id="btnWaVend" onclick="abrirWhatsAppComercial('sebastian')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.1c.1.2.1.4 0 .6l-.4.5-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>
+          Hablar con Sebastián por WhatsApp
         </button>
       </div>
 
