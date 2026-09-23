@@ -9,16 +9,17 @@ function evaluarVehiculo(vehiculo, userState) {
   const permiteCasa = vehiculo.credito_propio && userState.entrega > 0;
   const permiteBanco = !esClearing;
 
-  // Plan Casa: siempre a 60 cuotas fijas (la cuota más baja posible para personas en clearing o crédito propio)
+  // Plan Casa: a 24 cuotas fijas (límite para Crédito de la Casa)
   let opcionCasa = null;
+  const plazoCasa = (CFG && CFG.financiacion && CFG.financiacion.plazo_casa) ? CFG.financiacion.plazo_casa : 24;
   if (permiteCasa && entregaMinima(vehiculo.precio_usd) <= userState.entrega) {
-    const cuotaUsd = calcPlanCasa(vehiculo.precio_usd, userState.entrega, 60);
+    const cuotaUsd = calcPlanCasa(vehiculo.precio_usd, userState.entrega, plazoCasa);
     if (cuotaUsd !== null) {
       opcionCasa = {
         plan: 'casa',
         cuotaUsd: cuotaUsd,
         cuotaUyu: usd2uyu(cuotaUsd),
-        meses: 60,
+        meses: plazoCasa,
         entrega: Math.min(userState.entrega, entregaMaxima(vehiculo.precio_usd))
       };
     }

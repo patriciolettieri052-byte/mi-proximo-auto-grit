@@ -77,7 +77,7 @@ El sistema aplica la matriz financiera oficial de Grit Automotores:
 | Perfil Financiero | Vía Crediticia | Entrega Requerida | Plazos Disponibles | Requisitos Clave |
 | :--- | :--- | :--- | :--- | :--- |
 | **Sin Clearing** | Bancaria / Tradicional | Desde 0% (100% financiado) o cualquier entrega | 12, 24, 36 o 60 cuotas (dinámico) | Justificación de ingresos |
-| **Con Clearing** | Crédito de la Casa (Grit) | Mínimo 50% (+ títulos) o permuta | Fijo a 60 cuotas (máxima accesibilidad) | 2 Garantes solidarios |
+| **Con Clearing** | Crédito de la Casa (Grit) | Mínimo 50% (+ títulos) o permuta | Fijo a 24 cuotas (límite comercial de la casa) | 2 Garantes solidarios |
 | **Con Permuta** | Mixta | Vehículo usado tomado como entrega | Según plan elegido | Tasación comercial previa |
 
 - **Tipo de Cambio:** Configurable dinámicamente (`UYU / USD`).

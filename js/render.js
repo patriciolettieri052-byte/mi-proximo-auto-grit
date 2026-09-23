@@ -177,13 +177,14 @@ function renderEmptyState(container) {
   
   let finObj = null;
   if (esCasa) {
+    const plazoCasa = (CFG && CFG.financiacion && CFG.financiacion.plazo_casa) ? CFG.financiacion.plazo_casa : 24;
     const ent = Math.max(entregaMinima(cand.precio_usd), userSession.entrega || 0);
-    const cuotaUsd = calcPlanCasa(cand.precio_usd, ent, 60);
+    const cuotaUsd = calcPlanCasa(cand.precio_usd, ent, plazoCasa);
     finObj = {
       plan: 'casa',
       cuotaUsd: cuotaUsd,
       cuotaUyu: usd2uyu(cuotaUsd),
-      meses: 60,
+      meses: plazoCasa,
       entrega: ent
     };
   } else {
@@ -244,7 +245,7 @@ function renderCard(item, index) {
   const cuotaTxt = fmtU(f.cuotaUyu);
   const plazoBanco = f.meses || userSession.meses || 60;
   const cuotaSub = esCasa
-    ? `60 cuotas · (≈ ${fmtD(f.cuotaUsd)})`
+    ? `${f.meses || 24} cuotas · (≈ ${fmtD(f.cuotaUsd)})`
     : `${plazoBanco} cuotas fijas en pesos`;
 
   const planNombre = esCasa ? 'Plan Casa' : 'Plan Banco';

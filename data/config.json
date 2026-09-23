@@ -14,7 +14,7 @@
     },
     "plazos_banco": [12, 24, 36, 60],
     "plazo_banco_default": 60,
-    "plazo_casa": 60,
+    "plazo_casa": 24,
     "interes_flat_mensual": 0.02,
     "costo_titulos": 550,
     "entrega_minima_pct": 0.50,

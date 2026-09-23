@@ -52,10 +52,10 @@ function entregaMaxima(precioUsd) {
 }
 
 /**
- * Plan Casa: cuota en USD dada una entrega total declarada y un plazo en meses (por defecto 60)
+ * Plan Casa: cuota en USD dada una entrega total declarada y un plazo en meses (por defecto 24)
  * Redondeo ARRIBA al entero
  */
-function calcPlanCasa(precioUsd, entregaTotal, meses = 60) {
+function calcPlanCasa(precioUsd, entregaTotal, meses = 24) {
   if (!precioUsd || !entregaTotal || !meses) return null;
   const tit = getTitulosSplit();
   const minCap = precioUsd * (CFG && CFG.financiacion && CFG.financiacion.entrega_minima_pct ? CFG.financiacion.entrega_minima_pct : 0.50);

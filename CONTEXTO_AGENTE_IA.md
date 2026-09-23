@@ -158,7 +158,7 @@ const userSession = {
 
 ### 6.2 Plan Casa (`calcPlanCasa`)
 - Aplica para personas **con antecedentes en Clearing** (`clearing === 'si'`) o que eligen financiar directo con la automotora.
-- **Plazo fijo:** **60 cuotas fijas** (regla comercial estricta: ofrece la cuota mensual en USD más baja del mercado para clientes en Clearing).
+- **Plazo fijo:** **24 cuotas fijas** (límite comercial para Crédito de la Casa en Grit Automotores).
 - **Entrega mínima requerida:**  
   $$\text{entregaMinima} = \lceil (\text{precioUsd} \times 0.50) + 275 \rceil$$
 - Si `entregaDeclarada < entregaMinima`, **no califica para Plan Casa**.
@@ -167,7 +167,7 @@ const userSession = {
   - `capUsada = Math.min(entregaCapital, precioUsd * 0.90)`
   - `financiado = (precioUsd - capUsada) + 275`
   - **Fórmula:**  
-    $$\text{cuotaUsd} = \lceil \text{financiado} \times (\frac{1}{60} + 0.02) \rceil$$
+    $$\text{cuotaUsd} = \lceil \text{financiado} \times (\frac{1}{24} + 0.02) \rceil$$
   - En pesos uruguayos: `cuotaUyu = cuotaUsd * tc`.
 
 ---
@@ -264,7 +264,7 @@ En la auditoría de 48 leads en vivo en `grit_leads`, se descubrió que:
 
 ## 11. Mandamientos para Agentes de IA que Modifiquen este Proyecto
 
-1. **NO toques los plazos de Plan Casa:** Siempre es **60 cuotas fijas**. Nunca agregues botones de 12 o 24 meses para Plan Casa.
+1. **NO toques los plazos de Plan Casa:** Siempre es **24 cuotas fijas** (límite de la casa). Nunca agregues plazos mayores para Plan Casa.
 2. **NO toques los plazos de Plan Banco:** Siempre son **`12 | 24 | 36 | 60 cuotas`** con cálculo dinámico sobre `(precioUsd - entrega)`.
 3. **NO uses `&&` en la terminal PowerShell de Windows:** Usá punto y coma (`;`).
 4. **Respeta la estrategia híbrida:** Siempre que agregues campos a Supabase, asegurate de que tengan fallback en `data/stock.json` o `data/config.json`.
