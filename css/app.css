@@ -568,7 +568,7 @@ body {
 .local-hero-img-wrap {
   position: relative;
   width: 100%;
-  height: 125px;
+  height: 135px;
   overflow: hidden;
   background: #111;
 }
@@ -577,24 +577,24 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 36%;
+  object-position: center 28%;
   display: block;
 }
 
 .local-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.65) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 100%);
 }
 
 .local-hero-badge {
   position: absolute;
-  top: 9px;
+  bottom: 9px;
   left: 10px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(18, 20, 24, 0.85);
+  background: rgba(18, 20, 24, 0.88);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-badge);
