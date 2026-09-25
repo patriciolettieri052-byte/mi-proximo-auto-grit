@@ -153,8 +153,8 @@ function consultarPermutaClearing() {
   const ent = userSession.entrega > 0 ? fmtD(userSession.entrega) : 'mi presupuesto actual';
   const esClearing = (userSession.clearing === 'si' || userSession.clearing === true || userSession.clearing === 'nose' || userSession.plan === 'casa');
   const text = esClearing
-    ? `Hola Sebastián, estuve usando la app pero estoy en Clearing. Dispongo de ${ent} inicial y quisiera evaluar entregar mi vehículo usado en permuta o facilidades para el Crédito de la Casa. ¿Podemos coordinar? Ref: ${ref}`
-    : `Hola Sebastián, estuve usando la app pero busco opciones acordes a mi presupuesto (${ent}). ¿Podemos evaluar opciones de financiación personalizadas? Ref: ${ref}`;
+    ? `Hola Sebastián, estuve usando la app pero estoy en Clearing. Dispongo de ${ent} inicial y quisiera evaluar entregar mi vehículo usado en permuta o facilidades para el Crédito de la Casa. ¿Podemos coordinar?`
+    : `Hola Sebastián, estuve usando la app pero busco opciones acordes a mi presupuesto (${ent}). ¿Podemos evaluar opciones de financiación personalizadas?`;
   const url = `https://wa.me/59897300504?text=${encodeURIComponent(text)}`;
   abrirWhatsAppLink(url);
 }
