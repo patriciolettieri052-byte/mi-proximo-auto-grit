@@ -177,3 +177,36 @@ Gracias a la columna `tasacion_id` que conecta ambas tablas, el **Copiloto de IA
 
 Cuando un vendedor consulte por un *Gol Trend 2018 con 90.000 km*, la IA podrá consultar en segundo plano la tabla `mas_autos_operaciones` y responder:
 > *"Atención vendedor: En los últimos 6 meses Más Autos tomó 3 Gol Trend similares a USD 8.800 promedio. Tuvieron un gasto de taller de USD 450 y se vendieron en un promedio de 22 días a USD 10.900, arrojando una ganancia limpia de USD 1.650 (17.7% de margen). Se recomienda no tomar por encima de USD 9.000 para preservar el margen."*
+
+---
+
+## 6. Decisión de Arquitectura y UX: Dashboard Desktop-First en Pantalla Dividida (Split Screen)
+
+### Contexto y Justificación:
+Los tasadores y vendedores comerciales de Más Autos trabajan principalmente desde sus puestos de venta físicos (desktops o notebooks) mientras utilizan WhatsApp Web y consultan portales de mercado. Diseñar un dashboard puramente móvil limitaría la productividad y la visualización simultánea de fotos en alta resolución.
+
+### Arquitectura de Pantalla Dividida (2 Módulos Lado a Lado):
+
+```text
+┌────────────────────────────────────────┬────────────────────────────────────────┐
+│      MÓDULO IZQUIERDO (45%)            │        MÓDULO DERECHO (55%)            │
+│  COPILOTO IA CON VISIÓN Y ACCESO A DB  │  CATÁLOGO DE AUTOS TASADOS (DB)        │
+├────────────────────────────────────────┼────────────────────────────────────────┤
+│ • Chat interactivo en tiempo real      │ • Filtros rápidos: [Pendientes] [Todos]│
+│ • Visión Computacional (GPT-4o Vision):│ • Ficha de la unidad seleccionada:     │
+│   - Detecta bollos, rayas, pintura     │   - Marca, Modelo, Año, Kilometraje    │
+│   - Desgaste visible en volante/asiento│   - Tira interactiva de las 5 fotos    │
+│ • Acceso a Base de Datos (Tools/SQL):  │ • Input interactivo del vendedor:      │
+│   - Histórico de compra/venta en DB    │   [ USD  | Precio Tasado           ]   │
+│   - Margen proyectado de Más Autos     │ • Botón de confirmación:               │
+│ • Redacción en vivo de propuesta WA    │   [ ✓ Confirmar Tasación           ]   │
+│                                        │ • Botón: [ 💬 Abrir WhatsApp Web ]    │
+└────────────────────────────────────────┴────────────────────────────────────────┘
+```
+
+### Mecánica Operativa del Vendedor:
+1. **Selección del Auto (Derecha):** El vendedor hace clic en una solicitud pendiente del catálogo. Se cargan los datos y la galería de 5 fotos.
+2. **Auditoría Automática de la IA (Izquierda):** En el chat del copiloto, la IA ejecuta su análisis multimodal sobre las 5 fotos y cruza la información con la tabla `mas_autos_operaciones`.
+3. **Diálogo Interactivo:** El vendedor puede repreguntar en el chat: *"¿Ves algún detalle en el lateral derecho?", "¿Tenemos mucho stock de este modelo?", "¿A cuánto cerramos el último similar?"*.
+4. **Fijación del Precio:** El vendedor digita el monto acordado en el campo `"Precio Tasado"` y pulsa `"Confirmar tasación"`.
+5. **Impacto en DB y Cierre:** El sistema actualiza `mas_autos_tasaciones` con el monto y el estado `cotizado`, y genera el botón para disparar el mensaje de WhatsApp al cliente.

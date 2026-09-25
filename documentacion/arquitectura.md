@@ -115,20 +115,21 @@ sequenceDiagram
 
 ---
 
-## 5. Arquitectura del Dashboard Interno & Copiloto IA
+## 5. Arquitectura del Dashboard Interno (Desktop-First Split Screen) & Copiloto IA
 
-El Dashboard opera como una herramienta web interna protegida para el equipo comercial de Más Autos:
+El Dashboard opera como una aplicación web protegida para los vendedores de Más Autos, diseñada bajo un paradigma **Desktop-First en pantalla dividida (2 módulos paralelos)**:
 
-1. **Recepción reactiva:** Consulta a `mas_autos_tasaciones` con filtro por estado (`pendiente`, `en_revision`, `cotizado`).
-2. **Galería 5-Slot:** Renderiza en alta definición las 5 vistas tomadas por el usuario para inspeccionar chapa, pintura y tapizado.
-3. **Módulo de Asistente IA (`/api/asistente-tasacion.js`):**
-   - Recibe la ficha completa del vehículo (Marca, Modelo, Año, Kilometraje y metadatos).
-   - Consulta el prompt de tasación experto configurado para Más Autos.
-   - Retorna:
-     - **Semáforo de rotación comercial:** Alta, Media o Baja demanda en el mercado uruguayo.
-     - **Rango de toma sugerido (USD):** Valor mínimo y valor máximo de tasación para dejar margen comercial de reventa.
-     - **Checklist de inspección presencial:** Qué revisar con atención al recibir la unidad en el local.
-     - **Mensaje de WhatsApp borrador:** Mensaje listo para enviar al cliente, con saludo profesional, cotización y propuesta para coordinar inspección en el salón.
+1. **Módulo Derecho (55% - Gestión Operativa y Catálogo de Tasaciones):**
+   - Conexión en tiempo real con Supabase (`mas_autos_tasaciones`).
+   - Tira interactiva de las **5 fotos** con visor modal para inspección humana.
+   - **Input interactivo de acción comercial:** Campo `"Precio Tasado USD"` (inicialmente en blanco).
+   - **Botón "Confirmar Tasación":** Guarda la decisión del tasador en la base de datos, marca la solicitud como `cotizado` y activa el disparador directo a WhatsApp Web.
+
+2. **Módulo Izquierdo (45% - Copiloto IA Multimodal con Visión y DB Tools):**
+   - **Visión Computacional (GPT-4o Vision):** Consume las 5 URLs públicas alojadas en Supabase Storage (`fotos_tasacion/{id}/*.webp`), analizando daños en chapa/paragolpes y desgaste del habitáculo.
+   - **Acceso a Base de Datos (Tools/Function Calling):** Consulta en tiempo real la tabla `mas_autos_operaciones` para recuperar márgenes históricos, costos típicos de taller para esa marca/modelo y velocidad de venta en días.
+   - **Chat Conversacional Continuo:** El vendedor puede repreguntar en lenguaje natural antes de confirmar el precio en el módulo derecho.
+   - **Generador de Mensaje:** Redacta la propuesta formal con tono comercial Más Autos para enviar al cliente por WhatsApp con un solo clic.
 
 ---
 

@@ -130,25 +130,56 @@ A diferencia de otros embudos, **aquí no se fuerza al usuario a saltar a WhatsA
 
 ---
 
-## 3. Flujo Operativo del Vendedor (Lado Más Autos)
+## 3. Flujo Operativo del Vendedor (Dashboard Desktop-First en 2 Módulos)
 
-El flujo de trabajo del equipo comercial se centraliza en el **Dashboard de Tasaciones**:
+El equipo comercial opera desde un dashboard optimizado para **pantallas de escritorio o laptops** (con adaptación responsive a tablets), estructurado en **2 módulos interactivos lado a lado**:
 
-```mermaid
-flowchart TD
-    A["Nueva Solicitud en Dashboard<br>Badge 'Pendiente' con fotos"] --> B["Vendedor abre la Ficha<br>Inspecciona las 5 fotos en pantalla completa"]
-    B --> C["Clic en 'Copiloto de IA'<br>La IA evalúa coherencia, mercado y rango"]
-    C --> D["Propuesta sugerida por IA:<br>Rango de toma: USD 8.500 - 9.200<br>Borrador de WhatsApp listo"]
-    D --> E["Vendedor ajusta valor final si lo desea"]
-    E --> F["Un clic: 'Abrir WhatsApp Web con cliente'<br>Mensaje enviado con propuesta oficial"]
-    F --> G["Cambio de estado: 'Cotizado' / 'En negociación'"]
+```text
+┌──────────────────────────────────────────────┬──────────────────────────────────────────────┐
+│        MÓDULO IZQUIERDO (45%)                │           MÓDULO DERECHO (55%)               │
+│    COPILOTO IA (VISIÓN + HISTÓRICO DB)       │       CATÁLOGO DE AUTOS TASADOS (DB)         │
+├──────────────────────────────────────────────┼──────────────────────────────────────────────┤
+│ 💬 Chat Interactivo Multimodal:              │ 📋 Lista de Solicitudes (Filtros: Pendientes)│
+│ • La IA inspecciona las 5 fotos en HD:       │                                              │
+│   - Golpes, rayas o descuadre de chapa       │ 🚗 Ficha de la Unidad Seleccionada:          │
+│   - Desgaste en tapizado, volante, pomo      │ • Volkswagen Gol Trend 1.6 (2018)            │
+│ • Consulta en vivo a la DB (operaciones):    │ • 95.000 km · Ignacio Rodríguez (099 123456)│
+│   - "¿A cuánto compramos y vendimos este     │ • Strip de 5 fotos con zoom/lightbox         │
+│      modelo recientemente?"                  │                                              │
+│ • Sugerencia de rango de toma y margen       │ ✍️ Acción del Vendedor:                      │
+│ • Redacción de propuesta comercial para WA   │   [ Campo: Precio Tasado USD: ________ ]     │
+│                                              │   [ Botón: ✓ Confirmar Tasación ]            │
+│                                              │                                              │
+│                                              │ 💬 Cierre Comercial:                         │
+│                                              │   [ Botón: 🟢 Abrir WhatsApp con Cliente ]   │
+└──────────────────────────────────────────────┴──────────────────────────────────────────────┘
 ```
 
-1. **Recepción:** El dashboard actualiza en tiempo real la lista de unidades pendientes ordenadas por fecha/hora de ingreso.
-2. **Inspección rápida:** El vendedor hace clic en la fila del vehículo y se abre un panel lateral con los datos técnicos y una galería con las **5 fotos** en alta calidad para revisar golpes, rayones o desgaste del interior.
-3. **Consulta al Copiloto IA:**
-   - El vendedor presiona el botón *"Analizar con Asistente IA"*.
-   - La IA compara los datos de año, km y estado aparente, sugiriendo un **rango de compra mayorista/permuta** realista para el mercado uruguayo.
-4. **Respuesta comercial con un toque:**
-   - El dashboard muestra un cuadro de texto con el mensaje pre-redactado por la IA.
-   - El vendedor puede modificar la cifra o enviar directamente haciendo clic en el botón verde *"Contactar por WhatsApp"*, el cual abre WhatsApp Web o la app nativa con el chat del cliente abierto y el mensaje listo para enviar.
+### Paso a Paso Operativo del Vendedor:
+
+1. **Selección del Caso (Módulo Derecho):**
+   - El vendedor selecciona una unidad pendiente de la lista.
+   - Se despliegan los datos técnicos y la tira con las **5 fotos** (Frente, Trasera, Laterales e Interior) con soporte de clic para ver en pantalla completa.
+   - El campo `"Precio Tasado"` aparece vacío por defecto.
+
+2. **Auditoría con el Copiloto de IA (Módulo Izquierdo):**
+   - En el chat de la izquierda, el asistente multimodal se sincroniza automáticamente con la unidad seleccionada y emite un primer reporte:
+     > *"He analizado las 5 fotos del Gol Trend 2018 (#TAS-9482):*
+     > *1. **Chapa y pintura:** Buen estado general; se observa un leve raspón en el zócalo lateral izquierdo.*
+     > *2. **Interior:** Tapizados limpios y tablero en orden, coherente con los 95.000 km.*
+     > *3. **Histórico Más Autos (DB):** En los últimos meses se vendieron 2 unidades iguales a USD 10.800 promedio.*
+     > *👉 **Sugerencia:** Rango de toma entre **USD 8.200 y USD 8.600** para garantizar un margen del 18-20% considerando ~USD 300 de acondicionamiento."*
+
+3. **Interacción Dinámica en el Chat:**
+   - El vendedor puede escribirle al copiloto preguntas específicas:
+     - *"¿El zócalo requiere chapa y pintura o sale con pulido?"*
+     - *"¿Cuántos autos de este segmento tenemos en stock hoy?"*
+     - *"Redactame un mensaje ofreciendo USD 8.400 destacando que la inspección física lleva solo 15 minutos."*
+
+4. **Fijación de Precio y Confirmación (Módulo Derecho):**
+   - El vendedor ingresa la cifra decidida (ej. `8400`) en el campo interactivo `"Precio Tasado"`.
+   - Presiona el botón primario **"Confirmar Tasación"**.
+   - El sistema:
+     - Guarda el valor en `tasacion_final_vendedor`.
+     - Cambia el estado de la solicitud en Supabase a `cotizado`.
+     - Habilita el botón verde **"Abrir WhatsApp con Cliente"**, que carga el mensaje personalizado redactado por la IA en WhatsApp Web.

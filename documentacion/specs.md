@@ -89,31 +89,86 @@ const IMAGE_CONFIG = {
 
 ---
 
-## 4. Especificación del Asistente de IA (Dashboard Copilot)
+## 4. Especificación del Asistente de IA (Dashboard Copilot Multimodal)
 
 ### Endpoint Serverless: `/api/asistente-tasacion.js`
-- **Modelo:** `gpt-4o-mini` (alta velocidad, costo eficiente) o `gpt-4o`.
+- **Modelo:** `gpt-4o` (Soporte nativo multimodal para **Visión Computacional** y razonamiento de mercado) o `gpt-4o-mini`.
 - **Temperatura:** `0.2` (determinista, analítico, enfocado en negocio automotor).
 
-### System Prompt del Copiloto de Tasaciones:
+### Payload Multimodal enviado al LLM:
+El backend envía tanto los metadatos como el array de imágenes a la API de OpenAI:
+```json
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "system",
+      "content": "Sos el Tasador Experto y Copiloto Comercial de Más Autos en Montevideo, Uruguay..."
+    },
+    {
+      "role": "user",
+      "content": [
+        { "type": "text", "text": "Auditar vehículo: Volkswagen Gol Trend 2018, 95.000 km. Analizar las 5 fotos adjuntas para detectar imperfecciones de chapa, pintura o desgaste interior y recomendar rango de toma:" },
+        { "type": "image_url", "image_url": { "url": "https://.../frente.webp", "detail": "high" } },
+        { "type": "image_url", "image_url": { "url": "https://.../trasera.webp", "detail": "high" } },
+        { "type": "image_url", "image_url": { "url": "https://.../lateral_izq.webp", "detail": "high" } },
+        { "type": "image_url", "image_url": { "url": "https://.../lateral_der.webp", "detail": "high" } },
+        { "type": "image_url", "image_url": { "url": "https://.../interior.webp", "detail": "high" } }
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "consultar_historico_operaciones",
+        "description": "Consulta en la tabla mas_autos_operaciones compras y ventas pasadas de autos similares con sus costos de taller reales.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "marca": { "type": "string" },
+            "modelo": { "type": "string" },
+            "anio_min": { "type": "integer" },
+            "anio_max": { "type": "integer" }
+          },
+          "required": ["marca", "modelo"]
+        }
+      }
+    }
+  ]
+}
+```
+
+### System Prompt del Copiloto de Tasaciones (Con Visión):
 ```text
 Sos el Tasador Experto de "Más Autos" (+autos), automotora líder en Montevideo, Uruguay.
-Tu función es analizar los datos de un vehículo usado recibido por la app de tasaciones y asistir al vendedor en la cotización comercial.
+Tu función es analizar los datos y las 5 fotos de un vehículo usado recibido por la app de tasaciones y asistir al vendedor en la cotización comercial dentro del dashboard.
+
+CAPACIDADES Y REGLAS DE VISIÓN COMPUTACIONAL:
+1. Inspeccioná detenidamente cada una de las 5 fotos:
+   - Frente y Trasera: Rayones en paragolpes, alineación del capó, estado de ópticas y matrícula.
+   - Laterales: Bollos en puertas, raspones en zócalos, estado de guardabarros y llantas.
+   - Interior: Desgaste en el cuero/tela de butacas (especialmente conductor), estado del volante, palanca de cambios y tablero.
+2. Si observás detalles estéticos, cuantificá un costo estimado de taller (ej. "requiere pintura de paragolpes delantero: ~USD 120").
+3. Si el desgaste interior parece inconsistente con el kilometraje declarado, alertalo al vendedor.
 
 PARÁMETROS DEL MERCADO URUGUAYO:
-1. Las tasaciones de toma para reventa o compra directa habitualmente se ubican entre un 15% y un 25% por debajo del valor de publicación promedio en MercadoLibre Uruguay para dejar margen operativo, acondicionamiento y garantía.
-2. Considerá la depreciación por año y kilometraje típico (15.000 a 20.000 km por año es normal). Kilometrajes mayores a 200.000 km requieren mayor castigo en precio.
-3. Evalúa marcas de alta liquidez en Uruguay (Volkswagen, Chevrolet, Fiat, Suzuki, Renault, Hyundai) vs. marcas de menor rotación o repuestos caros.
+1. Las tasaciones de toma para reventa habitualmente se ubican entre un 15% y un 25% por debajo del valor de publicación promedio en MercadoLibre Uruguay para dejar margen operativo, acondicionamiento y garantía.
+2. Utilizá la herramienta consultar_historico_operaciones para verificar a cuánto compró y vendió Más Autos unidades comparables.
 
-TU RESPUESTA DEBE SER EXCLUSIVAMENTE UN OBJETO JSON CON LA SIGUIENTE ESTRUCTURA:
+TU RESPUESTA AL ABRIR LA FICHA DEBE SER UN OBJETO JSON CON LA SIGUIENTE ESTRUCTURA:
 {
+  "hallazgos_visuales": {
+    "chapa_pintura": string,
+    "interior": string,
+    "costo_estimado_taller_usd": number
+  },
   "liquidez_mercado": "alta" | "media" | "baja",
   "rango_toma_usd": {
     "min": number,
     "max": number
   },
   "valor_referencia_venta_usd": number,
-  "puntos_atencion": [string],
   "mensaje_whatsapp_sugerido": string
 }
 ```
