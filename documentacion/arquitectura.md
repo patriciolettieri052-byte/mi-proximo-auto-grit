@@ -17,11 +17,11 @@ flowchart LR
 
     subgraph SUPABASE ["Backend & Persistencia"]
         Storage["Supabase Storage<br>(Bucket: fotos_tasacion)"]
-        DB[("PostgreSQL DB<br>(Tabla: mas_autos_tasaciones)")]
+        DB[("PostgreSQL DB<br>(tasaciones + operaciones)")]
     end
 
     subgraph BACKOFFICE ["Lado Más Autos (Interno)"]
-        Dashboard["Dashboard Comercial<br>(Revisión y Filtros)"]
+        Dashboard["Dashboard Comercial<br>(Revisión, Filtros y Rentabilidad)"]
         Copilot["Asistente de IA<br>(GPT-4o / Prompt Tasador)"]
         WA["Derivación WhatsApp<br>(Contacto 1 a 1)"]
     end
@@ -44,7 +44,7 @@ flowchart LR
 | **Frontend Público** | Vanilla JavaScript (ES6+), HTML5, CSS Tokens | Cero tiempo de compilación, carga instantánea (<1s en 4G), mantenimiento simple sin dependencias frágiles. |
 | **Diseño / Estilos** | CSS Custom Properties (`tokens.css`, `app.css`) | Reutilización total del sistema visual probado de la app de valor cuota (Look nativo móvil en contenedor de 480px). |
 | **Almacenamiento** | Supabase Storage (`fotos_tasacion`) | Almacenamiento seguro en CDN para las 5 fotos obligatorias con subida directa o vía token. |
-| **Base de Datos** | Supabase PostgreSQL | Base de datos relacional robusta, soporte para JSONB, triggers y consultas REST en tiempo real. |
+| **Base de Datos** | Supabase PostgreSQL (`mas_autos_tasaciones` + `mas_autos_operaciones`) | Tablas desacopladas para solicitudes web y para trazabilidad contable, costos de taller y rentabilidad real. |
 | **Backend Serverless** | Vercel Functions (`/api/*.js`) | Endpoints Node.js ligeros para procesamiento seguro de IA, guardado y tokenización sin exponer claves maestras. |
 | **Asistente de IA** | OpenAI API (`gpt-4o-mini` / `gpt-4o`) | Análisis de coherencia de la unidad, estimación de rango de mercado y redacción de propuestas personalizadas para el vendedor. |
 
@@ -73,7 +73,8 @@ app-tasacion-mas-autos/
 ├── documentacion/
 │   ├── arquitectura.md          # Este documento
 │   ├── flow.md                  # Flujo detallado del usuario y del vendedor
-│   └── specs.md                 # Modelo de datos, especificaciones de fotos y prompt IA
+│   ├── specs.md                 # Modelo de datos, especificaciones de fotos y prompt IA
+│   └── DECISIONS.md             # Trazabilidad de compra directa/permuta y rentabilidad real
 ├── index.html                   # SPA pública de captación (cliente)
 └── vercel.json                  # Configuración de rutas y variables serverless
 ```
