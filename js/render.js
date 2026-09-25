@@ -246,7 +246,7 @@ function renderCard(item, index) {
   const plazoBanco = f.meses || userSession.meses || 60;
   const cuotaSub = esCasa
     ? `${f.meses || 24} cuotas · (≈ ${fmtD(f.cuotaUsd)})`
-    : `${plazoBanco} cuotas fijas en pesos`;
+    : `${plazoBanco} cuotas en pesos`;
 
   const planNombre = esCasa ? 'Plan Casa' : 'Plan Banco';
   const asesorNombre = (a.asesor === 'hernan') ? 'Hernán' : 'Sebastián';
