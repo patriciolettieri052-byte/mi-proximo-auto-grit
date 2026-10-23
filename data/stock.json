@@ -84,6 +84,27 @@
     "km": 4000
   },
   {
+    "id": "GR-RENAULT-KWID-2024-XF23DHZ3",
+    "empresa": "grit",
+    "estado": "disponible",
+    "marca": "Renault",
+    "modelo": "Kwid",
+    "version": "Outsider",
+    "anio": 2024,
+    "combustible": "nafta",
+    "transmision": "manual",
+    "carroceria": "hatchback",
+    "puertas": 5,
+    "color": "Blanco",
+    "precio_usd": 11990,
+    "credito_propio": true,
+    "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-RENAULT-KWID-2024-XF23DHZ3.jpg",
+    "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-C3L6ZXG5RBXK-renault-kwid-th-xl.jpg",
+    "asesor": "sebastian",
+    "orden": 5,
+    "km": 7500
+  },
+  {
     "id": "GR-BYD-YUAN_PRO-2026-71",
     "empresa": "grit",
     "estado": "disponible",
@@ -101,7 +122,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-4VPEKKCP4X6G-byd-yuan-pro-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-4VPEKKCP4X6G-byd-yuan-pro-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 5,
+    "orden": 6,
     "km": 10000
   },
   {
@@ -122,7 +143,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-YBWU9KNY4UT5-geely-ex5-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-YBWU9KNY4UT5-geely-ex5-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 6,
+    "orden": 7,
     "km": 15000
   },
   {
@@ -143,7 +164,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-586STSRWZ3X9-volkswagen-gol-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-586STSRWZ3X9-volkswagen-gol-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 7,
+    "orden": 8,
     "km": 34000
   },
   {
@@ -164,8 +185,29 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-DKWE2JAA9FA2-jeep-gladiator-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-DKWE2JAA9FA2-jeep-gladiator-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 8,
+    "orden": 9,
     "km": 39000
+  },
+  {
+    "id": "GR-CHERY-TIGGO_2-2020-J4HUVVW8",
+    "empresa": "grit",
+    "estado": "disponible",
+    "marca": "Chery",
+    "modelo": "Tiggo 2",
+    "version": "1.5 Full",
+    "anio": 2020,
+    "combustible": "nafta",
+    "transmision": "manual",
+    "carroceria": "sedan",
+    "puertas": 5,
+    "color": "Blanco",
+    "precio_usd": 11990,
+    "credito_propio": true,
+    "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-CHERY-TIGGO_2-2020-J4HUVVW8.jpg",
+    "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-HRTHW7DYM94U-chery-tiggo-2-th-xl.jpg",
+    "asesor": "sebastian",
+    "orden": 10,
+    "km": 59000
   },
   {
     "id": "GR-FIAT-MOBI-2019-67",
@@ -185,7 +227,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-XDKFQ6CLF33D-fiat-mobi-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-XDKFQ6CLF33D-fiat-mobi-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 9,
+    "orden": 11,
     "km": 70000
   },
   {
@@ -206,7 +248,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-6TA8Z8ANP8UF-fiat-strada-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-6TA8Z8ANP8UF-fiat-strada-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 10,
+    "orden": 12,
     "km": 75000
   },
   {
@@ -227,7 +269,7 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-PEUGEOT-2008-2016-XQVN9JDG.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-F4G6BKECGJ7Q-peugeot-2008-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 11,
+    "orden": 13,
     "km": 85000
   },
   {
@@ -248,7 +290,7 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-CHERY-FULWIN-2015-3FZ6VT3A.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-27354AWGVQFL-chery-fulwin-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 12,
+    "orden": 14,
     "km": 86000
   },
   {
@@ -269,7 +311,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-U9GMR4UZQ854-citroen-berlingo-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-U9GMR4UZQ854-citroen-berlingo-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 13,
+    "orden": 15,
     "km": 89000
   },
   {
@@ -290,7 +332,7 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-CITROEN-C3-2014-4ERRNZTU.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-PQ9SLSMT9EA7-citroen-c3-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 14,
+    "orden": 16,
     "km": 99000
   },
   {
@@ -311,7 +353,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-ML5Y3BR683PA-nissan-frontier-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-ML5Y3BR683PA-nissan-frontier-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 15,
+    "orden": 17,
     "km": 100000
   },
   {
@@ -332,7 +374,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-LSJJMMRUTMWZ-suzuki-swift-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-LSJJMMRUTMWZ-suzuki-swift-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 16,
+    "orden": 18,
     "km": 100000
   },
   {
@@ -353,7 +395,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-WF9H3M4DRESH-honda-civic-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-WF9H3M4DRESH-honda-civic-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 17,
+    "orden": 19,
     "km": 107000
   },
   {
@@ -374,7 +416,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-CZAUTA3QPQAK-mercedes-benz-gla200-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-CZAUTA3QPQAK-mercedes-benz-gla200-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 18,
+    "orden": 20,
     "km": 108000
   },
   {
@@ -395,7 +437,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-M8Z57BU9UYDC-volkswagen-gol-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-M8Z57BU9UYDC-volkswagen-gol-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 19,
+    "orden": 21,
     "km": 110000
   },
   {
@@ -416,7 +458,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-3PLK5EP8JZSK-peugeot-208-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-3PLK5EP8JZSK-peugeot-208-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 20,
+    "orden": 22,
     "km": 112000
   },
   {
@@ -437,7 +479,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-ELPBCRBCTZ6F-fiat-strada-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-ELPBCRBCTZ6F-fiat-strada-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 21,
+    "orden": 23,
     "km": 119000
   },
   {
@@ -458,7 +500,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-QDTXAEXYWHGM-fiat-strada-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-QDTXAEXYWHGM-fiat-strada-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 22,
+    "orden": 24,
     "km": 120000
   },
   {
@@ -479,7 +521,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-6N6AFRVCKVDW-fiat-strada-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-6N6AFRVCKVDW-fiat-strada-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 23,
+    "orden": 25,
     "km": 129000
   },
   {
@@ -500,7 +542,7 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-VOLKSWAGEN-UP-2018-KK9P84YJ.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-ZJSNN6VMZN9T-volkswagen-up-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 24,
+    "orden": 26,
     "km": 130000
   },
   {
@@ -521,7 +563,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-A24VBZC9LF9G-peugeot-207-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-A24VBZC9LF9G-peugeot-207-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 25,
+    "orden": 27,
     "km": 136000
   },
   {
@@ -542,7 +584,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-4BEHB7FM7CSM-suzuki-alto-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-4BEHB7FM7CSM-suzuki-alto-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 26,
+    "orden": 28,
     "km": 138000
   },
   {
@@ -563,7 +605,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-GLHZGPKUET8J-hyundai-grand-i10-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-GLHZGPKUET8J-hyundai-grand-i10-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 27,
+    "orden": 29,
     "km": 140000
   },
   {
@@ -584,50 +626,8 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-KQXP2E3EM9R2-hyundai-i10-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-KQXP2E3EM9R2-hyundai-i10-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 28,
-    "km": 140000
-  },
-  {
-    "id": "GR-NISSAN-VERSA-2013-103",
-    "empresa": "grit",
-    "estado": "disponible",
-    "marca": "Nissan",
-    "modelo": "Versa",
-    "version": "1.6 At Full",
-    "anio": 2013,
-    "combustible": "nafta",
-    "transmision": "automatica",
-    "carroceria": "sedan",
-    "puertas": 4,
-    "color": "Blanco",
-    "precio_usd": 7990,
-    "credito_propio": true,
-    "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-EQ2PYJPR6PER-nissan-versa-th-xl.jpg",
-    "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-EQ2PYJPR6PER-nissan-versa-th-xl.jpg",
-    "asesor": "sebastian",
-    "orden": 29,
-    "km": 148000
-  },
-  {
-    "id": "GR-VOLKSWAGEN-GOL-2013-53",
-    "empresa": "grit",
-    "estado": "disponible",
-    "marca": "Volkswagen",
-    "modelo": "Gol",
-    "version": "Power",
-    "anio": 2014,
-    "combustible": "nafta",
-    "transmision": "manual",
-    "carroceria": "sedan",
-    "puertas": 4,
-    "color": "Negro",
-    "precio_usd": 10900,
-    "credito_propio": true,
-    "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-HZWBLA4FNWUV-volkswagen-gol-th-xl.jpg",
-    "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-HZWBLA4FNWUV-volkswagen-gol-th-xl.jpg",
-    "asesor": "sebastian",
     "orden": 30,
-    "km": 152000
+    "km": 140000
   },
   {
     "id": "GR-CITRO_N-C3-2015-86",
@@ -735,6 +735,27 @@
     "km": 163000
   },
   {
+    "id": "GR-RENAULT-DUSTER-2015-5YQ38LPF",
+    "empresa": "grit",
+    "estado": "disponible",
+    "marca": "Renault",
+    "modelo": "Duster",
+    "version": "",
+    "anio": 2015,
+    "combustible": "nafta",
+    "transmision": "manual",
+    "carroceria": "suv",
+    "puertas": 5,
+    "color": "Bordeaux",
+    "precio_usd": 8490,
+    "credito_propio": true,
+    "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-RENAULT-DUSTER-2015-5YQ38LPF.jpg",
+    "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-JSMCXYX5UL5H-renault-duster-th-xl.jpg",
+    "asesor": "sebastian",
+    "orden": 36,
+    "km": 165000
+  },
+  {
     "id": "GR-SUZUKI-GRAND_VITARA-2008-96",
     "empresa": "grit",
     "estado": "disponible",
@@ -752,7 +773,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-TJW7XTJS4W4T-suzuki-grand-vitara-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-TJW7XTJS4W4T-suzuki-grand-vitara-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 36,
+    "orden": 37,
     "km": 165000
   },
   {
@@ -773,29 +794,8 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-6Q6XWDXNYHHV-peugeot-207-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-6Q6XWDXNYHHV-peugeot-207-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 37,
-    "km": 169000
-  },
-  {
-    "id": "GR-KIA-RIO-2009-34",
-    "empresa": "grit",
-    "estado": "disponible",
-    "marca": "Kia",
-    "modelo": "Rio",
-    "version": "At",
-    "anio": 2009,
-    "combustible": "nafta",
-    "transmision": "automatica",
-    "carroceria": "sedan",
-    "puertas": 4,
-    "color": "Negro",
-    "precio_usd": 7300,
-    "credito_propio": true,
-    "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-QKM89SGHQKVR-kia-rio-th-xl.jpg",
-    "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-QKM89SGHQKVR-kia-rio-th-xl.jpg",
-    "asesor": "sebastian",
     "orden": 38,
-    "km": 180000
+    "km": 169000
   },
   {
     "id": "GR-PEUGEOT-PARTNER-2014-SKJTWKKG",
@@ -882,27 +882,6 @@
     "km": 199000
   },
   {
-    "id": "GR-BYD-E2-2023-74",
-    "empresa": "grit",
-    "estado": "disponible",
-    "marca": "BYD",
-    "modelo": "e2",
-    "version": "Dolphin Gs Electrico",
-    "anio": 2023,
-    "combustible": "electrico",
-    "transmision": "automatica",
-    "carroceria": "sedan",
-    "puertas": 5,
-    "color": "Gris Plata",
-    "precio_usd": 17990,
-    "credito_propio": true,
-    "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-DJVYPTG89TN8-byd-e2-th-xl.jpg",
-    "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-DJVYPTG89TN8-byd-e2-th-xl.jpg",
-    "asesor": "sebastian",
-    "orden": 43,
-    "km": 220000
-  },
-  {
     "id": "GR-VOLKSWAGEN-AMAROK-2018-24",
     "empresa": "grit",
     "estado": "disponible",
@@ -920,7 +899,7 @@
     "foto_recorte": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-HPF65UR5L22T-volkswagen-amarok-th-xl.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-HPF65UR5L22T-volkswagen-amarok-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 44,
+    "orden": 43,
     "km": 240000
   },
   {
@@ -941,7 +920,7 @@
     "foto_recorte": "https://tyywkunwrdgtxslrqxox.supabase.co/storage/v1/object/public/vehiculos/grit/GR-NISSAN-FRONTIER-2004-KAXXYGYM.jpg",
     "foto_original": "https://s3.amazonaws.com/static.multiaviso.com/vehicle/images/46-RVH964VWBFX3-nissan-frontier-th-xl.jpg",
     "asesor": "sebastian",
-    "orden": 45,
+    "orden": 44,
     "km": 340000
   }
 ]
